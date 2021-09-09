@@ -2,6 +2,9 @@ class UserController < ApplicationController
   def index
   end
 
+  def show
+  end
+
   def about
   end
 
@@ -12,7 +15,6 @@ class UserController < ApplicationController
   end
 
   def add_features
-
   end
 
   private

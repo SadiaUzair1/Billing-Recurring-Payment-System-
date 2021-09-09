@@ -1,5 +1,5 @@
 class AddPlanToSubscriptiions < ActiveRecord::Migration[6.1]
   def change
-    add_reference :subscriptions, :plan, null: false, foreign_key: true
+    add_reference :subscriptions, :plan
   end
 end

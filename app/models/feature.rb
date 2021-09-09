@@ -1,3 +1,3 @@
 class Feature < ApplicationRecord
-  belongs_to :plans
+  belongs_to :plan
 end

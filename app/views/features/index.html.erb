@@ -1,1 +1,25 @@
-feature.first_name
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th>name</th>
+      <th>code</th>
+      <th>unit_price</th>
+      <th>max_unit_limit</th>
+      <th colspan="4"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @features.each do |feature| %>
+        <tr>
+          <td><%= feature.name %></td>
+          <td><%= feature.code %></td>
+          <td><%= feature.unit_price %></td>
+          <td><%= feature.max_unit_limit %></td>
+          <td><%= link_to 'Edit', edit_plan_feature_path(@plan, feature), class: "btn btn-dark" %></td>
+          <td><%= link_to 'Destroy',plan_feature_path(@plan, feature), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+<br>
