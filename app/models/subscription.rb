@@ -1,5 +1,7 @@
 class Subscription < ApplicationRecord
   belongs_to :plan
   belongs_to :user
-  belongs_to :plan_usage_table, optional: true
+
+  validates :user_id, presence: true
+  validates :plan_id, presence: true
 end

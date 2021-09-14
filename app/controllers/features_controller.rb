@@ -1,5 +1,5 @@
 class FeaturesController < ApplicationController
-  before_action :set_plan
+  before_action :set_plan, :set_user
   before_action :set_features_id, only: %i[destroy]
   after_action :set_plan_amount, only: %i[create destroy]
 
@@ -9,6 +9,7 @@ class FeaturesController < ApplicationController
 
   def new
     @features = @plan.features.new
+    authorize @features
   end
 
   def show
@@ -18,19 +19,21 @@ class FeaturesController < ApplicationController
     @feature = @plan.features.new(feature_params)
     respond_to do |format|
       if @feature.save
-        format.html { redirect_to plan_feature_path(@plan, @feature), notice: 'Feature was successfully updated' }
+        format.html { redirect_to user_plan_features_path(@user, @plan), notice: 'Feature was successfully updated'}
         format.json { render :show, status: :ok, location: @feature }
 
       else
-        format.html { render :new, status: :unprocessable_entity }
+        format.html { redirect_to user_plan_features_path(@user, @plan),
+           notice: 'Feature was not  updated', status: :unprocessable_entity }
         format.json { render json: @feature.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
+    authorize @feature
     @feature.destroy
-    redirect_to plan_features_path(@plan)
+    redirect_to user_plan_features_path(@user, @plan)
   end
 
   private
@@ -51,6 +54,11 @@ class FeaturesController < ApplicationController
   def set_features_id
     @feature = Feature.find(params[:id])
   end
+
+  def set_user
+    @user = current_user
+  end
+
   def feature_params
     params.require(:feature).permit(:feature_id, :name, :code, :unit_price, :max_unit_limit)
   end

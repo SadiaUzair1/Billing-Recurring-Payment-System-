@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_05_122343) do
+ActiveRecord::Schema.define(version: 2021_09_13_143427) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,25 +26,22 @@ ActiveRecord::Schema.define(version: 2021_09_05_122343) do
     t.index ["plan_id"], name: "index_features_on_plan_id"
   end
 
-  create_table "join_payment_plans", force: :cascade do |t|
-    t.string "payments"
-    t.string "plans"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "payments", force: :cascade do |t|
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "plan_id"
     t.bigint "user_id"
-    t.index ["plan_id"], name: "index_payments_on_plan_id"
+    t.integer "payment"
+    t.string "billing_day"
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
-  create_table "plan_usage_tables", force: :cascade do |t|
+  create_table "payments_and_plans_ids", force: :cascade do |t|
+    t.bigint "plan_id"
+    t.bigint "payment_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["payment_id"], name: "index_payments_and_plans_ids_on_payment_id"
+    t.index ["plan_id"], name: "index_payments_and_plans_ids_on_plan_id"
   end
 
   create_table "plans", force: :cascade do |t|
@@ -52,8 +49,6 @@ ActiveRecord::Schema.define(version: 2021_09_05_122343) do
     t.integer "monthly_fee"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "plan_usage_table_id"
-    t.index ["plan_usage_table_id"], name: "index_plans_on_plan_usage_table_id"
   end
 
   create_table "subscriptions", force: :cascade do |t|
@@ -62,9 +57,7 @@ ActiveRecord::Schema.define(version: 2021_09_05_122343) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
     t.bigint "plan_id"
-    t.bigint "plan_usage_table_id"
     t.index ["plan_id"], name: "index_subscriptions_on_plan_id"
-    t.index ["plan_usage_table_id"], name: "index_subscriptions_on_plan_usage_table_id"
     t.index ["user_id"], name: "index_subscriptions_on_user_id"
   end
 
@@ -77,10 +70,11 @@ ActiveRecord::Schema.define(version: 2021_09_05_122343) do
     t.datetime "remember_created_at"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.bigint "plan_usage_table_id"
     t.index ["email"], name: "index_users_on_email", unique: true
-    t.index ["plan_usage_table_id"], name: "index_users_on_plan_usage_table_id"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "features", "plans"
+  add_foreign_key "subscriptions", "plans"
+  add_foreign_key "subscriptions", "users"
 end
