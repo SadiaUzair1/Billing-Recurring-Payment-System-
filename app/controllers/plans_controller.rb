@@ -1,13 +1,13 @@
+# frozen_string_literal: true
+
 class PlansController < ApplicationController
-  before_action :set_plan, only: %i[index]
-  before_action :find_current_plan, only: %i[destroy buy_plan]
-  before_action :set_user, only: %i[index buy_plan new create]
+  before_action :set_plan, only: [:index]
+  before_action :find_current_plan, only: [:destroy]
+  before_action :set_user, only: %i[index new create]
 
-  def index
-  end
+  def index; end
 
-  def show
-  end
+  def show; end
 
   def new
     @plan = Plan.new
@@ -15,14 +15,12 @@ class PlansController < ApplicationController
   end
 
   def create
-    @plan = Plan.create(plan_params)
+    @plan = Plan.new(plan_params)
     respond_to do |format|
       if @plan.save
         format.html { redirect_to user_plans_path, notice: 'Plan was successfully created.' }
-        format.json { render :show, status: :created, location: @plan }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @plan.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -32,7 +30,6 @@ class PlansController < ApplicationController
     @plan.destroy
     respond_to do |format|
       format.html { redirect_to user_plans_url, notice: 'Feature was successfully destroyed.' }
-      format.json { head :no_content }
     end
   end
 
@@ -50,8 +47,7 @@ class PlansController < ApplicationController
     @user = current_user
   end
 
-  def set_subscription
-  end
+  def set_subscription; end
 
   def plan_params
     params.require(:plan).permit(:name, :plan_id, :monthly_fee)

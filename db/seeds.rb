@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
 #
@@ -6,7 +8,7 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-PlanUsageTable.create()
+PlanUsageTable.create
 
 Feature.create(
   name: 'Feature 1',
@@ -26,8 +28,9 @@ Subscription.create(
 )
 
 User.create(
-  email: 'fatima@gmail.com',
-  password: 'fatima',
-  userType: 'buyer',
-  plan_usage_table_id: 1
+  email: 'sad@gmail.com',
+  password: 'sadiaa',
+  userType: 'admin'
 )
+
+PlanUsage.create(user_id: 2, plan_name: 'Plan f')

@@ -1,0 +1,7 @@
+development:
+  stripe_secret_key: 'sk_test_BRPpISwsTFnO5ih1WlxbvSkz'
+  stripe_publishable_key: 'pk_test_SAfpkFB2WVKLbQVukGCTVq5Z'
+
+production:
+  stripe_secret_key: 'sk_live_aLvPhyGtUwlLSHvms3KhCdrL'
+  stripe_publishable_key: 'pk_live_nbTqsm8Gg0eHGrQVRbWnjlyN'

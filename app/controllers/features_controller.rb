@@ -1,6 +1,8 @@
+# frozen_string_literal: true
+
 class FeaturesController < ApplicationController
   before_action :set_plan, :set_user
-  before_action :set_features_id, only: %i[destroy]
+  before_action :set_feature, only: %i[destroy update]
   after_action :set_plan_amount, only: %i[create destroy]
 
   def index
@@ -12,20 +14,35 @@ class FeaturesController < ApplicationController
     authorize @features
   end
 
-  def show
+  def show; end
+
+  def edit
+    @features = @plan.features.find(params[:id])
   end
 
   def create
-    @feature = @plan.features.new(feature_params)
+    byebug
+    feature_param =  feature_params
+    feature_param[:total_amount] =  feature_params[:max_unit_limit].to_i * feature_params[:unit_price].to_i
+    @feature = @plan.features.new(feature_param)
     respond_to do |format|
       if @feature.save
-        format.html { redirect_to user_plan_features_path(@user, @plan), notice: 'Feature was successfully updated'}
-        format.json { render :show, status: :ok, location: @feature }
-
+        format.html { redirect_to user_plan_features_path(@user, @plan), notice: 'Feature was successfully updated' }
       else
-        format.html { redirect_to user_plan_features_path(@user, @plan),
-           notice: 'Feature was not  updated', status: :unprocessable_entity }
-        format.json { render json: @feature.errors, status: :unprocessable_entity }
+        format.html do
+          redirect_to user_plan_features_path(@user, @plan),
+                      notice: 'Feature was not  updated', status: :unprocessable_entity
+        end
+      end
+    end
+  end
+
+  def update
+    respond_to do |format|
+      if @feature.update(feature_params)
+        format.html { redirect_to user_plan_features_path, notice: "Feature is successfully updated." }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
       end
     end
   end
@@ -43,16 +60,12 @@ class FeaturesController < ApplicationController
   end
 
   def set_plan_amount
-    @plan_monthly_fee = @plan.features.sum(:unit_price)
-    @plan.update(monthly_fee: @plan_monthly_fee)
+     @plan_monthly_fee = @plan.features.sum(:total_amount)
+     @plan.update(monthly_fee: @plan_monthly_fee)
   end
 
   def set_feature
     @feature = @plan.features.find(params[:id])
-  end
-
-  def set_features_id
-    @feature = Feature.find(params[:id])
   end
 
   def set_user

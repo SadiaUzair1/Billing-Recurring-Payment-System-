@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'active_support/core_ext/integer/time'
 
 Rails.application.configure do
@@ -85,4 +87,5 @@ Rails.application.configure do
     authentication: 'plain',
     enable_starttls_auto: true
   }
+
 end
