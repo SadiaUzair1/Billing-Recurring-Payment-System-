@@ -13,7 +13,6 @@ class SubscriptionsController < ApplicationController
   end
 
   def create
-    binding.pry
     @subscription = Subscription.new(plan_id: @plan.id, user_id: @user.id)
     respond_to do |format|
       if @subscription.save
