@@ -1,10 +1,11 @@
 <table class='table table-striped'>
   <thead>
     <tr>
-      <th>name</th>
-      <th>code</th>
-      <th>unit_price</th>
-      <th>max_unit_limit</th>
+      <th>NAME</th>
+      <th>CODE PRICE PER UNIT</th>
+      <th>PRICE PER UNIT</th>
+      <th>MAX LIMIT</th>
+      <th>TOTAL</th>
       <th colspan='4'></th>
     </tr>
   </thead>
@@ -14,10 +15,11 @@
         <tr>
           <td><%= feature.name %></td>
           <td><%= feature.code %></td>
-          <td><%= feature.unit_price %></td>
+          <td><%= number_to_currency(feature.unit_price /  100)%></td>
           <td><%= feature.max_unit_limit %></td>
-            <td><%= link_to 'Edit',  edit_user_plan_feature_path(@user.id, @plan, feature), class: 'btn btn-dark' %></td>
-            <td><%= link_to 'Destroy',user_plan_feature_path(@user, @plan, feature), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= number_to_currency(feature.total_amount / 100)%></td>
+          <td><%= link_to 'Edit',  edit_user_plan_feature_path(@user.id, @plan, feature), class: 'btn btn-dark' %></td>
+          <td><%= link_to 'DELETE FEATURE',user_plan_feature_path(@user, @plan, feature), class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
 
         </tr>
     <% end %>

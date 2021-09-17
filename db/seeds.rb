@@ -28,11 +28,17 @@ Subscription.create(
 )
 
 User.create(
-  id: 10,
   name: 'FATIMA',
   email: 'fatima@gmail.com',
   password: 'fatimas',
   userType: 'buyer'
 )
+User.create(
+  name: 'SADIA',
+  email: 'sadia@gmail.com',
+  password: 'sadiaaa',
+  userType: 'admin'
+)
+
 
 PlanUsage.create(user_id: 2, plan_name: 'Plan f')

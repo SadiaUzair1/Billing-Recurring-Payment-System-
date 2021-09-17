@@ -6,7 +6,7 @@ Rails.application.routes.draw do
     resources :plans do
       resources :features
       resources :subscriptions
-      resources :payments
+      resources :checkouts
     end
     resources :plan_usages
     post 'checkouts/create', to: 'checkouts#create', as: 'checkouts'

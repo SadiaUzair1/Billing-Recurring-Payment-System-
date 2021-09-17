@@ -1,6 +1,5 @@
 
-<% @buyer = current_user%>
-<h1> <%=@buyer.name.upcase%> </h1>
+<h1> <%=@user.name.upcase%> </h1>
 <br/>
 <br/>
 <table class='table table-striped'>
@@ -10,6 +9,7 @@
       <th>FEATURES</th>
       <th>AMOUNT</th>
       <th>MAX LIMIT</th>
+      <th>INCREASED LIMIT</th>
     </tr>
   </thead>
   <tbody>
@@ -17,8 +17,9 @@
         <tr>
         <td><%= plan_usage.plan_name %></td>
         <td><%= plan_usage.features_name %></td>
-        <td><%= plan_usage.amount %></td>
+        <td><%= number_to_currency(plan_usage.amount.to_i / 100) %></td>
         <td><%= plan_usage.max_unit_limit %></td>
+        <td><%= plan_usage.increased_units %></td>
         <td><%= link_to 'CHANGE LIMIT +',edit_user_plan_usage_path(@user.id ,plan_usage.id) ,class: 'btn btn-dark'%></td>
         </tr>
     <% end %>

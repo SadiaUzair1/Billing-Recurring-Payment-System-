@@ -1,7 +1,9 @@
 # frozen_string_literal: true
 
 class SubscriptionsController < ApplicationController
-  def index; end
+  def index
+    @subscriptions = Subscription.all
+  end
 
   def show; end
 

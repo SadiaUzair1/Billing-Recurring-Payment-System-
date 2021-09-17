@@ -1,0 +1,34 @@
+
+<h1> <%=@user.name.upcase%> </h1>
+<br/>
+<br/>
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>PLANS</th>
+      <th>FEATURES</th>
+      <th>AMOUNT</th>
+      <th>MAX LIMIT</th>
+      <th>INCREASED LIMIT</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%if @user.userType == 'buyer'%>
+    <% @subscription.each do |subscription| %>
+      <% @subscription.each do |subscription| %>
+        <tr>
+        <td><%= plan_usage.plan_name %></td>
+        <td><%= plan_usage.features_name %></td>
+        <td><%= number_to_currency(plan_usage.amount.to_i / 100) %></td>
+        <td><%= plan_usage.max_unit_limit %></td>
+        <td><%= plan_usage.increased_units %></td>
+        <td><%= link_to 'CHANGE LIMIT +',edit_user_plan_usage_path(@user.id ,plan_usage.id) ,class: 'btn btn-dark'%></td>
+        </tr>
+      <%end%>
+    <%end%>
+  <% end %>
+  </tbody>
+</table>
+<br>
+
+

@@ -17,12 +17,11 @@
     <% @plan.each do |plan| %>
         <tr>
           <td><%= plan.name %></td>
-          <td><%= number_to_currency(plan.monthly_fee) %></td>
+          <td><%= number_to_currency(plan.monthly_fee/100) %></td>
 
           <% if @user.userType == 'admin'%>
           <td><%= link_to 'ADD FEATURE', new_user_plan_feature_path(@user.id ,plan.id) ,class: 'btn btn-dark'%></td>
-          <td><%= link_to 'Edit', edit_user_plan_path(@user.id, plan),class: 'btn btn-dark' %></td>
-          <td><%= link_to 'Destroy', user_plan_path(@user.id, plan.id),class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <td><%= link_to 'DELETE PLAN', user_plan_path(@user.id, plan.id),class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
           <%else%>
             <td>
               <%= check_box_tag "selected_plans[]", plan.id, false, class: 'subscribed_plan_checkbox' %>
