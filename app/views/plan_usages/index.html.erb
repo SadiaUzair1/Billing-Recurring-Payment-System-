@@ -1,18 +1,25 @@
 
-<h1> BUYERS SUBSCRIPTIONS</h1>
+<% @buyer = current_user%>
+<h1> <%=@buyer.name.upcase%> </h1>
 <br/>
 <br/>
 <table class='table table-striped'>
   <thead>
     <tr>
       <th>PLANS</th>
+      <th>FEATURES</th>
+      <th>AMOUNT</th>
+      <th>MAX LIMIT</th>
     </tr>
   </thead>
   <tbody>
     <% @plan_usage.each do |plan_usage| %>
         <tr>
-        <td><%= plan_usage.name %></td>
-        <td><%= link_to 'FEATURES',user_plan_features_path(@user.id ,plan_usage.id) ,class: 'btn btn-dark'%></td>
+        <td><%= plan_usage.plan_name %></td>
+        <td><%= plan_usage.features_name %></td>
+        <td><%= plan_usage.amount %></td>
+        <td><%= plan_usage.max_unit_limit %></td>
+        <td><%= link_to 'CHANGE LIMIT +',edit_user_plan_usage_path(@user.id ,plan_usage.id) ,class: 'btn btn-dark'%></td>
         </tr>
     <% end %>
   </tbody>

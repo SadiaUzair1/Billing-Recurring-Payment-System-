@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_15_141434) do
+ActiveRecord::Schema.define(version: 2021_09_16_073453) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,10 +46,16 @@ ActiveRecord::Schema.define(version: 2021_09_15_141434) do
   end
 
   create_table "plan_usages", force: :cascade do |t|
-    t.integer "user_id", default: 0, null: false
     t.string "plan_name", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.string "users_name", default: "", null: false
+    t.string "features_name", default: "", null: false
+    t.string "amount", default: "0", null: false
+    t.integer "max_unit_limit", default: 0, null: false
+    t.string "increased_units", default: "1", null: false
+    t.bigint "user_id", default: 0, null: false
+    t.index ["user_id"], name: "index_plan_usages_on_user_id"
   end
 
   create_table "plans", force: :cascade do |t|

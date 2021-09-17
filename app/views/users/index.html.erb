@@ -16,7 +16,6 @@
         <tr>
           <% if user.userType != 'admin'%>
           <td><%= user.email %></td>
-          <td><%= user.userType %></td>
           <td><%= link_to 'SUBSCRIBED', user_plan_usages_path(user.id) ,class: 'btn btn-dark'%></td>
            <td><%= link_to 'Destroy', user_path(user.id),class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
     <%end%>

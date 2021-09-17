@@ -23,12 +23,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        UserMailer.with(user: @user).registration_confirmation.deliver_later
-        format.html { redirect_to main_index_path(@plan, @user), notice: 'user was successfully created' }
-        format.json { render :show, status: :ok, location: @user }
+        UserMailer.with(user: @user).registration_confirmation.deliver_now
+        format.html { redirect_to users_path, notice: 'user was successfully created' }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -36,7 +34,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_path, notice: "User is successfully updated." }
+        format.html { redirect_to user_path, notice: 'User is successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -61,6 +59,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :userType)
+    params.require(:user).permit(:email, :password, :userType, :name)
   end
 end

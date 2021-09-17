@@ -2,7 +2,9 @@
 
 class AddColInPayments < ActiveRecord::Migration[6.1]
   def change
-    add_column :payments, :payment, :integer, null: false, default: ''
-    add_column :payments, :billing_day, :string, null: false, default: ''
+    change_table :payments, bulk: true do |t|
+      t.integer :payment, null: false, default: 0
+      t.string :billing_day, null: false, default: ''
+    end
   end
 end

@@ -12,6 +12,5 @@ Rails.application.routes.draw do
     post 'checkouts/create', to: 'checkouts#create', as: 'checkouts'
   end
 
-
   root 'users#home'
 end

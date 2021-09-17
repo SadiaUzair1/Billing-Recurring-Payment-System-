@@ -5,6 +5,6 @@ class Feature < ApplicationRecord
 
   validates :name, :code, :unit_price, :max_unit_limit, presence: true
   validates :code, uniqueness: true
-  validates :unit_price, numericality: {greater_than: 0}
-  validates :max_unit_limit, numericality: {greater_than: 0}
+  validates :unit_price, numericality: { greater_than: 0 }
+  validates :max_unit_limit, numericality: { greater_than: 0 }
 end
