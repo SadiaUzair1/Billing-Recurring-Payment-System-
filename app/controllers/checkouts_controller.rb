@@ -4,6 +4,7 @@ class CheckoutsController < ApplicationController
   before_action :set_plan_amount, only: [:create]
   before_action :set_plans, only: %i[add_subscriptions_and_payments add_plan_usage]
   after_action :add_subscriptions_and_payments, :add_plan_usage, only: [:create]
+  after_action :email_vreifiction, only: [:create]
 
   def create
     @session = Stripe::Checkout::Session.create({
@@ -54,7 +55,8 @@ class CheckoutsController < ApplicationController
     @billing_day = Time.zone.today
     @subscription = Subscription.create(plan_id: plan.id, user_id: user.id, status: 1)
     @payment = plan.payments.create(payment: plan.monthly_fee, plan_id: plan.id,
-                                    billing_day: @billing_day, user_id: user.id, status: 1)
+                                    billing_day: Time.zone.today, user_id: user.id, status: 1,
+                                    next_billing_day: Time.zone.today + 1.month)
   end
 
   def add_plan_usage
@@ -85,8 +87,12 @@ class CheckoutsController < ApplicationController
     end
   end
 
+  def email_vreifiction
+    @user = current_user
+    CheckoutMailer.with(user: @user).subscription_confirmation.deliver_now
+  end
+
   def set_plans
     @plan_ids = params[:selected_plans]
   end
-
 end
