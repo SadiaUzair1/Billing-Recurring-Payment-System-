@@ -48,8 +48,7 @@ class CheckoutsController < ApplicationController
   end
 
   def data_entery_subscription_and_payment(plan, user)
-    @billing_day = Time.zone.today
-    @subscription = Subscription.create(plan_id: plan.id, user_id: user.id, status: 1)
+    @subscription = user.subscriptions.create(plan_id: plan.id, status: 1)
     @payment = plan.payments.create(payment: plan.monthly_fee, plan_id: plan.id,
                                     billing_day: Time.zone.today, user_id: user.id, status: 1,
                                     next_billing_day: Time.zone.today + 1.month)

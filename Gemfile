@@ -67,3 +67,6 @@ gem 'pry', '~> 0.14.1'
 gem 'stripe'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'devise_invitable', '~> 2.0', '>= 2.0.5'
+gem 'delayed_job_active_record'
+gem 'whenever', require: false
+
