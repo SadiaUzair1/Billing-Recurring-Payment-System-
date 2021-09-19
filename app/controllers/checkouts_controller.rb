@@ -28,11 +28,7 @@ class CheckoutsController < ApplicationController
 
   def set_plan_amount
     @plan_ids = params[:selected_plans]
-    @amount = 0
-    @plan_ids.each do |plan_id|
-      @plan_id = Plan.find(plan_id)
-      @amount += @plan_id.monthly_fee
-    end
+    @amount = Plan.where(id: @plan_ids).sum(:monthly_fee)
   end
 
   def add_subscriptions_and_payments
@@ -44,7 +40,7 @@ class CheckoutsController < ApplicationController
         data_entery_subscription_and_payment(@plan, @user)
       end
     elsif plans_count == 1
-      @plan = Plan.find(@plan_ids[0])
+      @plan = Plan.find_by(id: @plan_ids[0])
       data_entery_subscription_and_payment(@plan, @user)
     else
       redirect_to users_url, notice: 'Transaction failed'
@@ -90,9 +86,5 @@ class CheckoutsController < ApplicationController
   def email_vreifiction
     @user = current_user
     CheckoutMailer.with(user: @user).subscription_confirmation.deliver_now
-  end
-
-  def set_plans
-    @plan_ids = params[:selected_plans]
   end
 end

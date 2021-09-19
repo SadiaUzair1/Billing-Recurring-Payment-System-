@@ -66,3 +66,4 @@ gem 'figaro', '~> 1.2'
 gem 'pry', '~> 0.14.1'
 gem 'stripe'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
+gem 'devise_invitable', '~> 2.0', '>= 2.0.5'
