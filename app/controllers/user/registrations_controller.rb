@@ -12,7 +12,7 @@ module User
 
     # POST /resource
     # def create
-    #   super
+    # super
     # end
 
     # GET /resource/edit

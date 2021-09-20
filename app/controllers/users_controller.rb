@@ -13,6 +13,8 @@ class UsersController < ApplicationController
     authorize @user
   end
 
+  def show; end
+
   def edit
     @user = User.find(params[:id])
   end
@@ -49,6 +51,23 @@ class UsersController < ApplicationController
   end
 
   def home; end
+
+  def charge_account
+    users = User.all
+
+    users.each do |user|
+      if user.userType != 'buyer'
+        @buyer = User.find_by(id: user.id)
+        PaymentMailer.with(user: @buyer).payment_reminder.deliver_now
+      end
+    end
+    redirect_to users_path
+  end
+
+  def invite
+    @user = current_user
+    User.invite!(email: 'sadia.uzair@devsinc.com', name: 'sadia')
+  end
 
   private
 

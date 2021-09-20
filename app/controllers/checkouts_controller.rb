@@ -2,9 +2,7 @@
 
 class CheckoutsController < ApplicationController
   before_action :set_plan_amount, only: [:create]
-  before_action :set_plans, only: %i[add_subscriptions_and_payments add_plan_usage]
   after_action :add_subscriptions_and_payments, :add_plan_usage, only: [:create]
-  after_action :email_vreifiction, only: [:create]
 
   def create
     @session = Stripe::Checkout::Session.create({
@@ -60,21 +58,20 @@ class CheckoutsController < ApplicationController
     return unless plans_count.positive? && !@plan_ids.nil?
 
     if plans_count == 1
-
       @plan = Plan.find(@plan_ids[0])
-      @features = @plan.features
       data_entery_in_plan_usage(@features)
     else
       @plan_ids.each do |plan_id|
         @plan = Plan.find(plan_id)
-        @features = @plan.features
-        data_entery_in_plan_usage(@features)
+        data_entery_in_plan_usage(@plan)
       end
     end
+    email_vreifiction
   end
 
-  def data_entery_in_plan_usage(_features)
-    @features.each do |feature|
+  def data_entery_in_plan_usage(_plan)
+    features = @plan.features
+    features.each do |feature|
       @plan_usage = PlanUsage.create(user_id: @user.id, users_name: @user.name, plan_name: @plan.name,
                                      features_name: feature.name, amount: feature.total_amount,
                                      max_unit_limit: feature.max_unit_limit,

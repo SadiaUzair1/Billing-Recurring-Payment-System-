@@ -3,7 +3,7 @@
 class PlansController < ApplicationController
   before_action :set_plan, only: [:index]
   before_action :find_current_plan, only: [:destroy]
-  before_action :set_user, only: %i[index new create ]
+  before_action :set_user, only: %i[index new create]
 
   def index; end
 
