@@ -63,6 +63,13 @@ ActiveRecord::Schema.define(version: 2021_09_20_051847) do
     t.index ["plan_id"], name: "index_payments_and_plans_ids_on_plan_id"
   end
 
+  create_table "plan_usage", force: :cascade do |t|
+    t.integer "user_id", default: 0, null: false
+    t.string "plan_name", default: "", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "plan_usages", force: :cascade do |t|
     t.string "plan_name", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
