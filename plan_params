@@ -1,0 +1,13 @@
+
+[1mFrom:[0m /home/dev/billing_and_recurring_payment_system/app/controllers/plans_controller.rb:16 PlansController#create:
+
+    [1;34m15[0m: [32mdef[0m [1;34mcreate[0m
+ => [1;34m16[0m:   binding.pry
+    [1;34m17[0m:   @plan = [1;34;4mPlan[0m.new(plan_params)
+    [1;34m18[0m:   [32mif[0m @plan.save
+    [1;34m19[0m:     redirect_to [31m[1;31m'[0m[31mplans_path[1;31m'[0m[31m[0m
+    [1;34m20[0m:   [32melse[0m
+    [1;34m21[0m:     render [31m[1;31m'[0m[31mnew[1;31m'[0m[31m[0m
+    [1;34m22[0m:   [32mend[0m
+    [1;34m23[0m: [32mend[0m
+

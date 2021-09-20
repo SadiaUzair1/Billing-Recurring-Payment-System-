@@ -1,0 +1,27 @@
+<br/>
+<%= form_with(model: [@user, @plan, @features], remote: true) do |form| %>
+  <div class='field mb-3'>
+    <%= form.label :name %>
+    <%= form.text_field :name, class:'form-control', required: true%>
+  </div>
+
+  <div class='field mb-3'>
+    <%= form.label :code %>
+    <%= form.number_field :code, value: number_to_currency(form.object.code.to_f, delimiter: '', unit: ''), class:'form-control', step: :any %>
+  </div>
+
+  <div class='field mb-3'>
+    <%= form.label :unit_price %>
+   <%= form.number_field :unit_price , class:'form-control', min: 101, required: true%>
+  </div>
+
+  <div class='field mb-3'>
+    <%= form.label :max_unit_limit %>
+    <%= form.number_field :max_unit_limit , class:'form-control',min: 1,  required: true%>
+ </div>
+
+<br/>
+<div class='actions'>
+  <%= form.submit  class: 'btn btn-dark' %>
+</div>
+<% end %>

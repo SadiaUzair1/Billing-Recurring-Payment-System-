@@ -1,0 +1,21 @@
+<br/>
+<%= form_with(model: [@user, @plan_usage], :remote => true) do |form| %>
+
+<div class='field mb-3'>
+  <%= form.number_field :plan_name, class:'form-control', type: :hidden%>
+</div>
+
+<div class='field mb-3'>
+  <%= form.number_field :amount, class:'form-control', type: :hidden%>
+</div>
+
+<div class='field mb-3'>
+  <%= form.label :max_unit_limit %>
+  <%= form.number_field :increased_units, class:'form-control'%>
+</div>
+
+<br/>
+<div class='actions'>
+  <%= form.submit  class: 'btn btn-dark' %>
+</div>
+<% end %>

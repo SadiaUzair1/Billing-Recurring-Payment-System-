@@ -1,0 +1,41 @@
+<h1> PLANS</h1>
+<% if @user.userType == 'admin'%>
+  <%= link_to 'ADD PLAN', new_user_plan_path(@user.id)  , class: 'btn btn-dark'  %>
+<%end%>
+<br/>
+<br/>
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>NAME</th>
+      <th>MONTHLY FEE</th>
+
+      <th colspan='3'></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @plan.each do |plan| %>
+        <tr>
+          <td><%= plan.name %></td>
+          <td><%= number_to_currency(plan.monthly_fee/100) %></td>
+
+          <% if @user.userType == 'admin'%>
+          <td><%= link_to 'ADD FEATURE', new_user_plan_feature_path(@user.id ,plan.id) ,class: 'btn btn-dark'%></td>
+          <td><%= link_to 'DELETE PLAN', user_plan_path(@user.id, plan.id),class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%else%>
+            <td>
+              <%= check_box_tag "selected_plans[]", plan.id, false, class: 'subscribed_plan_checkbox' %>
+              <td>CHECK TO SUBSCRIBE</td>
+            </td>
+          <%end%>
+
+          <td><%= link_to 'FEATURES', user_plan_features_path(@user.id,plan.id), class: 'btn btn-dark' %></td>
+        </tr>
+    <% end %>
+  </tbody>
+</table>
+
+  <% if @user.userType != 'admin'%>
+    <%= link_to 'Checkout' ,'#_', class: 'btn btn-dark', id: 'checkout_plans' %>
+ <%end%>
+<br>
