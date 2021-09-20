@@ -14,8 +14,6 @@ class FeaturesController < ApplicationController
     authorize @features
   end
 
-  def show; end
-
   def edit
     @features = @plan.features.find(params[:id])
   end
@@ -42,8 +40,7 @@ class FeaturesController < ApplicationController
 
   def destroy
     authorize @feature
-    @feature.destroy
-    redirect_to user_plan_features_path(@user, @plan)
+    redirect_to user_plan_features_path(@user, @plan) if @feature.destroy
   end
 
   def save_feature(feature)

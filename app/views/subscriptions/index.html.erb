@@ -15,7 +15,7 @@
   <tbody>
   <%if @user.userType == 'buyer'%>
     <% @subscription.each do |subscription| %>
-      <% @subscription.each do |subscription| %>
+      <% if subscription.status == 0 %>
         <tr>
         <td><%= plan_usage.plan_name %></td>
         <td><%= plan_usage.features_name %></td>

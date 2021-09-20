@@ -70,7 +70,7 @@ class CheckoutsController < ApplicationController
   end
 
   def data_entery_in_plan_usage(_plan)
-    features = @plan.features
+    features = plan.features
     features.each do |feature|
       @plan_usage = PlanUsage.create(user_id: @user.id, users_name: @user.name, plan_name: @plan.name,
                                      features_name: feature.name, amount: feature.total_amount,

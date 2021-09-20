@@ -2,7 +2,7 @@
 
 class PlanUsagesController < ApplicationController
   before_action :set_user, only: %i[index edit update_buyers_payment]
-  before_action :set_plan_usage_for_update, only: [:update]
+  before_action :set_user_plan_usage, only: [:update]
   after_action :update_buyers_payment, only: [:update]
 
   def index
@@ -43,7 +43,7 @@ class PlanUsagesController < ApplicationController
     @user = User.find(params[:user_id])
   end
 
-  def set_plan_usage_for_update
+  def set_user_plan_usage
     @user = User.find(params[:user_id])
     @plan_usage = @user.plan_usages.find(params[:id])
   end
