@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
- before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :configure_permitted_parameters, if: :devise_controller?
   include Pundit
 
   protect_from_forgery with: :exception
@@ -15,7 +15,7 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:accept_invitation, keys: %i[name userType password email])
   end
 
- private
+  private
 
   def user_not_authorized
     flash[:alert] = 'You are not authorized to perform this action!'

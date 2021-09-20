@@ -45,7 +45,7 @@ class PlansController < ApplicationController
     @user = current_user
   end
 
- def plan_params
+  def plan_params
     params.require(:plan).permit(:name, :plan_id, :monthly_fee)
   end
 end

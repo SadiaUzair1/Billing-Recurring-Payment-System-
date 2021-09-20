@@ -45,7 +45,7 @@ class UsersController < ApplicationController
     authorize @user
     @user = User.find(params[:id])
     @user.destroy
-   redirect_to users_url if @user.destroy
+    redirect_to users_url if @user.destroy
   end
 
   def home; end

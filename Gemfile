@@ -69,7 +69,3 @@ gem 'pry', '~> 0.14.1'
 gem 'stripe'
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 gem 'whenever', require: false
-
-group :production do
-  gem 'pg'
-end
