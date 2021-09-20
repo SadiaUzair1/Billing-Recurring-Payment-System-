@@ -40,7 +40,7 @@ class FeaturesController < ApplicationController
 
   def destroy
     authorize @feature
-    redirect_to user_plan_features_path(@user, @plan) if @feature.destroy
+   redirect_to user_plan_features_path(@user, @plan) if @feature.destroy
   end
 
   def save_feature(feature)
@@ -54,7 +54,7 @@ class FeaturesController < ApplicationController
         end
       end
     end
-  end
+ end
 
   private
 
@@ -63,7 +63,7 @@ class FeaturesController < ApplicationController
   end
 
   def set_plan_amount
-    @plan_monthly_fee = @plan.features.sum(:total_amount)
+   @plan_monthly_fee = @plan.features.sum(:total_amount)
     @plan.update(monthly_fee: @plan_monthly_fee)
   end
 

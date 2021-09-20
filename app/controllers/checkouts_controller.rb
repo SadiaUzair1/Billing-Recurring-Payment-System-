@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CheckoutsController < ApplicationController
-  before_action :set_plan_amount, only: [:create]
+ before_action :set_plan_amount, only: [:create]
   after_action :add_subscriptions_and_payments, :add_plan_usage, only: [:create]
 
   def create
@@ -17,14 +17,14 @@ class CheckoutsController < ApplicationController
                                                   success_url: users_url,
                                                   cancel_url: users_url
                                                 })
-    respond_to do |format|
+   respond_to do |format|
       format.js
     end
   end
 
   private
 
-  def set_plan_amount
+ def set_plan_amount
     @plan_ids = params[:selected_plans]
     @amount = Plan.where(id: @plan_ids).sum(:monthly_fee)
   end

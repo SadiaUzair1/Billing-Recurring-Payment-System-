@@ -12,6 +12,7 @@
 
 ActiveRecord::Schema.define(version: 2021_09_20_051847) do
 
+
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -29,6 +30,7 @@ ActiveRecord::Schema.define(version: 2021_09_20_051847) do
     t.datetime "updated_at", precision: 6
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
+
 
   create_table "features", force: :cascade do |t|
     t.string "name"
@@ -51,6 +53,7 @@ ActiveRecord::Schema.define(version: 2021_09_20_051847) do
     t.integer "status", default: 0, null: false
     t.date "next_billing_day", default: "2021-09-17", null: false
     t.date "billing_day", default: "2021-10-18", null: false
+
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
@@ -81,7 +84,7 @@ ActiveRecord::Schema.define(version: 2021_09_20_051847) do
     t.string "increased_units", default: "1", null: false
     t.bigint "user_id", default: 0, null: false
     t.index ["user_id"], name: "index_plan_usages_on_user_id"
-  end
+ end
 
   create_table "plans", force: :cascade do |t|
     t.string "name"
@@ -122,7 +125,7 @@ ActiveRecord::Schema.define(version: 2021_09_20_051847) do
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
-    t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
+   t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
   add_foreign_key "features", "plans"
