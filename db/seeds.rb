@@ -10,13 +10,13 @@
 
 User.create(
   name: 'buyer',
-  email: 'fatima@gmail.com',
-  password: 'fatimas',
+  email: 'buyer@gmail.com',
+  password: 'buyerr',
   userType: 'buyer'
 )
 User.create(
   name: 'admin',
-  email: 'sadia.uzair@devsinc.com',
-  password: 'sadiaaa',
-  userType: 'buyer'
+  email: 'admin@gmail.com',
+  password: 'adminn',
+  userType: 'admin'
 )

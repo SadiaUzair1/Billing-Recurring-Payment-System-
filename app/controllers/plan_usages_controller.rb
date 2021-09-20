@@ -36,20 +36,20 @@ class PlanUsagesController < ApplicationController
   private
 
   def set_plan
-    @plan = Plan.find(params[:plan_id])
+    @plan = Plan.find_by(id: params[:plan_id])
   end
 
   def set_user
-    @user = User.find(params[:user_id])
+    @user = User.find_by(id: params[:user_id])
   end
 
   def set_user_plan_usage
-    @user = User.find(params[:user_id])
+    @user = User.find_by(id: params[:user_id])
     @plan_usage = @user.plan_usages.find(params[:id])
   end
 
   def set_plan_usage
-    @plan_usage = PlanUsage.find(params[:user_id])
+    @plan_usage = PlanUsage.find_by(id: params[:user_id])
   end
 
   def plan_usage_params

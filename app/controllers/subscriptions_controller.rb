@@ -2,7 +2,9 @@
 
 class SubscriptionsController < ApplicationController
   def index
+    @user = current_user
     @subscriptions = Subscription.all
+    @plan_usage = @user.plan_usages.all
   end
 
   def show; end

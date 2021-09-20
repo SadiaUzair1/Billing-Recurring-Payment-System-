@@ -34,7 +34,7 @@ class CheckoutsController < ApplicationController
     plans_count = @plans_ids.nil? ? @plan_ids.count : 0
     if plans_count > 1
       @plan_ids.each do |plan_id|
-        @plan = Plan.find(plan_id)
+        @plan = Plan.find_by(id: plan_id)
         data_entery_subscription_and_payment(@plan, @user)
       end
     elsif plans_count == 1
@@ -53,33 +53,33 @@ class CheckoutsController < ApplicationController
   end
 
   def add_plan_usage
-    @user = User.find(params[:user_id])
+    @user = User.find_by(id: params[:user_id])
     plans_count = @plan_ids.count
     return unless plans_count.positive? && !@plan_ids.nil?
 
     if plans_count == 1
-      @plan = Plan.find(@plan_ids[0])
-      data_entery_in_plan_usage(@features)
+      @plan = Plan.find_by(id: @plan_ids[0])
+      data_entery_in_plan_usage
     else
       @plan_ids.each do |plan_id|
-        @plan = Plan.find(plan_id)
-        data_entery_in_plan_usage(@plan)
+        @plan = Plan.find_by(id: plan_id)
+        data_entery_in_plan_usage
       end
     end
-    email_vreifiction
+    email_verifiction
   end
 
-  def data_entery_in_plan_usage(_plan)
-    features = plan.features
+  def data_entery_in_plan_usage
+    features = @plan.features
     features.each do |feature|
-      @plan_usage = PlanUsage.create(user_id: @user.id, users_name: @user.name, plan_name: @plan.name,
-                                     features_name: feature.name, amount: feature.total_amount,
-                                     max_unit_limit: feature.max_unit_limit,
-                                     increased_units: feature.max_unit_limit)
+      @plan_usage = @user.plan_usages.create(user_id: @user.id, users_name: @user.name, plan_name: @plan.name,
+                                             features_name: feature.name, amount: feature.total_amount,
+                                             max_unit_limit: feature.max_unit_limit,
+                                             increased_units: feature.max_unit_limit)
     end
   end
 
-  def email_vreifiction
+  def email_verifiction
     @user = current_user
     CheckoutMailer.with(user: @user).subscription_confirmation.deliver_now
   end

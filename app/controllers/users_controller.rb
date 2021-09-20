@@ -45,9 +45,7 @@ class UsersController < ApplicationController
     authorize @user
     @user = User.find(params[:id])
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'Feature was successfully destroyed.' }
-    end
+    redirect_to users_url if @user.destroy
   end
 
   def home; end

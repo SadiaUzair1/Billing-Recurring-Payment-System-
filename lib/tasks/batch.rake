@@ -10,7 +10,6 @@ namespace :batch do
       @user = User.find_by(id: payment.user_id)
       PaymentMailer.with(user: @user).payment_reminder.deliver_now
       payment.update(status: 0)
-      @user.subscriptions[payment.plan_id].update(status: 0)
     end
   end
 end
