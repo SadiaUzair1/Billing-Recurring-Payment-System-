@@ -81,6 +81,6 @@ test:
 #
 production:
   <<: *default
-  database: billing_and_recurring_payment_system_production
+  database: <%= ENV['DATABASE_URL'] %>
   username: billing_and_recurring_payment_system
   password: <%= ENV['BILLING_AND_RECURRING_PAYMENT_SYSTEM_DATABASE_PASSWORD'] %>
