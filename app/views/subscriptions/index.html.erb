@@ -1,0 +1,30 @@
+
+<br/>
+<br/>
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>PLANS</th>
+      <th>FEATURES</th>
+      <th>AMOUNT</th>
+      <th>MAX LIMIT</th>
+    </tr>
+  </thead>
+  <tbody>
+  <%if @user.userType == 'buyer'%>
+    <% @user.subscriptions.each do |subscription| %>
+      <% if subscription.status == 1 %>
+        <tr>
+        <td><%= @plan_usage.id%></td>
+        <td><%= @plan_usage.features_name %></td>
+        <td><%= number_to_currency(@plan_usage.amount.to_i / 100) %></td>
+        <td><%= @plan_usage.increased_units %></td>
+        </tr>
+      <%end%>
+    <%end%>
+  <% end %>
+  </tbody>
+</table>
+<br>
+
+

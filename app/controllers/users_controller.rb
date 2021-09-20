@@ -23,12 +23,10 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     respond_to do |format|
       if @user.save
-        UserMailer.with(user: @user).registration_confirmation.deliver_later
-        format.html { redirect_to main_index_path(@plan, @user), notice: 'user was successfully created' }
-        format.json { render :show, status: :ok, location: @user }
+        UserMailer.with(user: @user).registration_confirmation.deliver_now
+        format.html { redirect_to users_path, notice: 'user was successfully created' }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -36,7 +34,7 @@ class UsersController < ApplicationController
   def update
     respond_to do |format|
       if @user.update(user_params)
-        format.html { redirect_to user_path, notice: "User is successfully updated." }
+        format.html { redirect_to user_path, notice: 'User is successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
       end
@@ -47,12 +45,27 @@ class UsersController < ApplicationController
     authorize @user
     @user = User.find(params[:id])
     @user.destroy
-    respond_to do |format|
-      format.html { redirect_to users_url, notice: 'Feature was successfully destroyed.' }
-    end
+   redirect_to users_url if @user.destroy
   end
 
   def home; end
+
+  def charge_account
+    users = User.all
+
+    users.each do |user|
+      if user.userType != 'buyer'
+        @buyer = User.find_by(id: user.id)
+        PaymentMailer.with(user: @buyer).payment_reminder.deliver_now
+      end
+    end
+    redirect_to users_path
+  end
+
+  def invite
+    @user = current_user
+    User.invite!(email: 'sadia.uzair@devsinc.com', name: 'sadia')
+  end
 
   private
 
@@ -61,6 +74,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :userType)
+    params.require(:user).permit(:email, :password, :userType, :name)
   end
 end

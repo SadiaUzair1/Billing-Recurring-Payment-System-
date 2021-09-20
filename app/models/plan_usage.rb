@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class PlanUsage < ApplicationRecord
-  validates :user_id, :plan_name, presence: true
+  belongs_to :user
 end

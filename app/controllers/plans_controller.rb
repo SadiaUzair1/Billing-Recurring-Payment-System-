@@ -7,8 +7,6 @@ class PlansController < ApplicationController
 
   def index; end
 
-  def show; end
-
   def new
     @plan = Plan.new
     authorize @plan
@@ -47,9 +45,7 @@ class PlansController < ApplicationController
     @user = current_user
   end
 
-  def set_subscription; end
-
-  def plan_params
+ def plan_params
     params.require(:plan).permit(:name, :plan_id, :monthly_fee)
   end
 end
