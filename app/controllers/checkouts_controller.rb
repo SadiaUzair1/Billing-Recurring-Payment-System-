@@ -75,14 +75,11 @@ class CheckoutsController < ApplicationController
   def data_entery_in_plan_usage
     features = @plan.features
     features.each do |feature|
-      next if PlanUsage.where(plan_name: @plan.name).exists?
 
-      PlanUsage.where(features_name: feature.name).exists?
+      next if PlanUsage.where(plan_name: @plan.name).exists? &&
 
-      @plan_usage = @user.plan_usages.create(user_id: @user.id, users_name: @user.name, plan_name: @plan.name,
-                                             features_name: feature.name, amount: feature.total_amount,
-                                             max_unit_limit: feature.max_unit_limit,
-                                             increased_units: feature.max_unit_limit)
+              PlanUsage.where(features_name: feature.name).exists?
+      @plan_usage = @user.plan_usages.create!(user_id: @user.id, plan_name: @plan.name,features_name: feature.name, amount: feature.total_amount,feature_max_limit: feature.max_unit_limit,increased_units: feature.max_unit_limit)
     end
   end
 

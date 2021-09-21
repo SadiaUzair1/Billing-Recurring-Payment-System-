@@ -10,9 +10,9 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_20_051847) do
+ActiveRecord::Schema.define(version: 2021_09_21_094136) do
 
- # These are extensions that must be enabled in order to support this database
+  # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 2021_09_20_051847) do
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "plan_id"
     t.integer "total_amount", null: false
+    t.index ["code"], name: "index_features_on_code"
     t.index ["plan_id"], name: "index_features_on_plan_id"
   end
 
@@ -46,41 +47,33 @@ ActiveRecord::Schema.define(version: 2021_09_20_051847) do
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.bigint "user_id"
-    t.integer "payment"
+    t.integer "payment", default: 0, null: false
     t.integer "plan_id", default: 0, null: false
     t.integer "status", default: 0, null: false
-    t.date "next_billing_day", default: "2021-09-17", null: false
-    t.date "billing_day", default: "2021-10-18", null: false
+    t.date "next_billing_day", default: "2021-09-21", null: false
+    t.date "billing_day", default: "2021-10-21", null: false
     t.index ["user_id"], name: "index_payments_on_user_id"
   end
 
   create_table "payments_and_plans_ids", force: :cascade do |t|
-    t.bigint "plan_id"
-    t.bigint "payment_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["payment_id"], name: "index_payments_and_plans_ids_on_payment_id"
-    t.index ["plan_id"], name: "index_payments_and_plans_ids_on_plan_id"
-  end
-
-  create_table "plan_usage", force: :cascade do |t|
-    t.integer "user_id", default: 0, null: false
-    t.string "plan_name", default: "", null: false
+    t.string "plan_id"
+    t.integer "payment_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
 
   create_table "plan_usages", force: :cascade do |t|
+    t.integer "user_id", default: 0, null: false
+    t.integer "subscription_id", default: 0, null: false
+    t.string "feature_name", default: "", null: false
     t.string "plan_name", default: "", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-    t.string "users_name", default: "", null: false
-    t.string "features_name", default: "", null: false
-    t.string "amount", default: "0", null: false
+    t.integer "feature_max_limit", null: false
     t.integer "max_unit_limit", default: 0, null: false
-    t.string "increased_units", default: "1", null: false
-    t.bigint "user_id", default: 0, null: false
-    t.index ["user_id"], name: "index_plan_usages_on_user_id"
+    t.integer "increased_units", default: 1, null: false
+    t.integer "amount", default: 0, null: false
+    t.string "features_name", default: "", null: false
   end
 
   create_table "plans", force: :cascade do |t|
@@ -123,11 +116,9 @@ ActiveRecord::Schema.define(version: 2021_09_20_051847) do
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
     t.index ["invited_by_type", "invited_by_id"], name: "index_users_on_invited_by"
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
- end
+  end
 
   add_foreign_key "features", "plans"
-  add_foreign_key "payments_and_plans_ids", "payments"
-  add_foreign_key "payments_and_plans_ids", "plans"
   add_foreign_key "subscriptions", "plans"
   add_foreign_key "subscriptions", "users"
 end
