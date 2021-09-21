@@ -266,7 +266,7 @@ DEPENDENCIES
   byebug
   capybara (>= 3.26)
   delayed_job_active_record
-  devise (~> 4.8)
+  devise
   devise_invitable (~> 2.0, >= 2.0.5)
   figaro (~> 1.2)
   jbuilder (~> 2.7)
