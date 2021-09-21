@@ -82,20 +82,10 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address: 'smtp.gmail.com',
     port: 587,
-    user_name: 'sadia.uzair@devsinc.com',
-    password: 'irjarotfbgxhzxfi',
+    user_name: Rails.application.credentials.master.fetch(:user_name),
+    password: Rails.application.credentials.master.fetch(:password),
     authentication: 'plain',
     enable_starttls_auto: true
   }
 
-  config.action_mailer.default_url_options = { host: ENV['MAIL_HOST'] }
-  config.action_mailer.smtp_settings = {
-    address: 'smtp.gmail.com',
-    port: 587,
-    user_name: ENV['SENDMAIL_USERNAME'],
-    password: ENV['SENDMAIL_PASSWORD'],
-    domain: ENV['MAIL_HOST'],
-    authentication: 'plain',
-    enable_starttls_auto: true
-  }
 end

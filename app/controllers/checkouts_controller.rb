@@ -46,8 +46,7 @@ class CheckoutsController < ApplicationController
   end
 
   def data_entery_subscription_and_payment(plan, user)
-    byebug
-    return if Payment.where(plan_name: plan.name).exists? &&
+    return if Payment.where(plan_id: plan.id).exists? &&
               Payment.where(user_id: user.id).exists?
 
     @subscription = user.subscriptions.create(plan_id: plan.id, status: 1)
@@ -76,9 +75,9 @@ class CheckoutsController < ApplicationController
   def data_entery_in_plan_usage
     features = @plan.features
     features.each do |feature|
-      byebug
-      return if PlanUsage.where(plans_id: @plan.id).exists? &&
-                PlanUsage.where(features_name: feature.name).exists?
+      next if PlanUsage.where(plan_name: @plan.name).exists?
+
+      PlanUsage.where(features_name: feature.name).exists?
 
       @plan_usage = @user.plan_usages.create(user_id: @user.id, users_name: @user.name, plan_name: @plan.name,
                                              features_name: feature.name, amount: feature.total_amount,

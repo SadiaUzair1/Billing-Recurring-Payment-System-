@@ -4,6 +4,7 @@ class FeaturesController < ApplicationController
   before_action :set_plan, :set_user
   before_action :set_feature, only: %i[destroy update]
   after_action :set_plan_amount, only: %i[create update destroy]
+  after_action :update_plan_usage, only: %i[update]
 
   def index
     @features = @plan.features
@@ -26,11 +27,11 @@ class FeaturesController < ApplicationController
   end
 
   def update
-    feature_param = feature_params
-    feature_param[:total_amount] = feature_params[:max_unit_limit].to_i * feature_params[:unit_price].to_i
+    @feature_param = feature_params
+    @feature_param[:total_amount] = feature_params[:max_unit_limit].to_i * feature_params[:unit_price].to_i
 
     respond_to do |format|
-      if @feature.update(feature_param)
+      if @feature.update(@feature_param)
         format.html { redirect_to user_plan_features_path, notice: 'Feature is successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }
@@ -73,6 +74,13 @@ class FeaturesController < ApplicationController
 
   def set_user
     @user = current_user
+  end
+
+  def update_plan_usage
+    plan_usages = PlanUsage.all
+    plan_usages.each do |plan_usage|
+      plan_usage.update(amount: @feature_param[:total_amount]) if plan_usage.features_name == @feature_param[:name]
+    end
   end
 
   def feature_params
