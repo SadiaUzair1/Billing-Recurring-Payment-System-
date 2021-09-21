@@ -5,7 +5,6 @@ class CheckoutsController < ApplicationController
   after_action :add_subscriptions_and_payments, :add_plan_usage, only: [:create]
 
   def create
-    byebug
     @session = Stripe::Checkout::Session.create({
                                                   payment_method_types: ['card'],
                                                   line_items: [{
@@ -47,6 +46,10 @@ class CheckoutsController < ApplicationController
   end
 
   def data_entery_subscription_and_payment(plan, user)
+    byebug
+    return if Payment.where(plan_name: plan.name).exists? &&
+              Payment.where(user_id: user.id).exists?
+
     @subscription = user.subscriptions.create(plan_id: plan.id, status: 1)
     @payment = plan.payments.create(payment: plan.monthly_fee, plan_id: plan.id,
                                     billing_day: Time.zone.today, user_id: user.id, status: 1,
@@ -73,6 +76,10 @@ class CheckoutsController < ApplicationController
   def data_entery_in_plan_usage
     features = @plan.features
     features.each do |feature|
+      byebug
+      return if PlanUsage.where(plans_id: @plan.id).exists? &&
+                PlanUsage.where(features_name: feature.name).exists?
+
       @plan_usage = @user.plan_usages.create(user_id: @user.id, users_name: @user.name, plan_name: @plan.name,
                                              features_name: feature.name, amount: feature.total_amount,
                                              max_unit_limit: feature.max_unit_limit,

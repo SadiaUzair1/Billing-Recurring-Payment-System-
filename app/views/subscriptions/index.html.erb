@@ -14,14 +14,16 @@
   <%if @user.userType == 'buyer'%>
     <% @user.subscriptions.each do |subscription| %>
       <% if subscription.status == 1 %>
-        <tr>
-        <td><%= @plan_usage.features_name %></td>
-        <td><%= number_to_currency(@plan_usage.amount.to_i / 100) %></td>
-        <td><%= @plan_usage.increased_units %></td>
-        </tr>
+        <%@plan_usages.each do |plan_usage|%>
+           <tr><td><%= plan_usage.plan_name %></td>
+          <td><%= plan_usage.features_name %></td>
+          <td><%= number_to_currency(plan_usage.amount.to_i / 100) %></td>
+          <td><%= plan_usage.increased_units %></td>
+          </tr>
+        <%end%>
       <%end%>
     <%end%>
-  <% end %>
+  <%end%>
   </tbody>
 </table>
 <br>
