@@ -20,6 +20,6 @@
 # end
 
 # Learn more: http://github.com/javan/whenever
-every 1.month do
+every 1.day do
   rake 'batch:send_payment_emails'
 end
