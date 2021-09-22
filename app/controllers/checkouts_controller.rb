@@ -46,10 +46,25 @@ class CheckoutsController < ApplicationController
   end
 
   def data_entery_subscription_and_payment(plan, user)
-    return if Payment.where(plan_id: plan.id).exists? &&
-              Payment.where(user_id: user.id).exists?
+    if Subscription.where(plan_id: plan.id).exists? &&
+       Subscription.where(user_id: user.id).exists?
+      check_paid_paymemt(user, plan)
+    else
+      @subscription = user.subscriptions.create(plan_id: plan.id, status: 1)
+      data_entery_in_payment(plan, user)
+    end
+  end
 
-    @subscription = user.subscriptions.create(plan_id: plan.id, status: 1)
+  def check_paid_paymemt(user, plan)
+    payment = Payment.find_by(plan_id: plan.id, user_id: user.id)
+    if Payment.where(plan_id: plan.id).exists? &&
+       Payment.where(user_id: user.id).exists? &&
+       payment.status.zero?
+      data_entery_in_payment(plan, user)
+    end
+  end
+
+  def data_entery_in_payment(plan, user)
     @payment = plan.payments.create(payment: plan.monthly_fee, plan_id: plan.id,
                                     billing_day: Time.zone.today, user_id: user.id, status: 1,
                                     next_billing_day: Time.zone.today + 1.month)
@@ -75,11 +90,13 @@ class CheckoutsController < ApplicationController
   def data_entery_in_plan_usage
     features = @plan.features
     features.each do |feature|
-
       next if PlanUsage.where(plan_name: @plan.name).exists? &&
-
               PlanUsage.where(features_name: feature.name).exists?
-      @plan_usage = @user.plan_usages.create!(user_id: @user.id, plan_name: @plan.name,features_name: feature.name, amount: feature.total_amount,feature_max_limit: feature.max_unit_limit,increased_units: feature.max_unit_limit)
+
+      @plan_usage = @user.plan_usages.create!(user_id: @user.id, plan_name: @plan.name,
+                                              features_name: feature.name, amount: feature.total_amount,
+                                              feature_max_limit: feature.max_unit_limit,
+                                              increased_units: feature.max_unit_limit)
     end
   end
 

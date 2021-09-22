@@ -19,18 +19,6 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def create
-    @user = User.new(user_params)
-    respond_to do |format|
-      if @user.save
-        UserMailer.with(user: @user).registration_confirmation.deliver_now
-        format.html { redirect_to users_path, notice: 'user was successfully created' }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-      end
-    end
-  end
-
   def update
     respond_to do |format|
       if @user.update(user_params)

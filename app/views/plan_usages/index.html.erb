@@ -16,7 +16,7 @@
         <td><%= plan_usage.plan_name %></td>
         <td><%= plan_usage.features_name %></td>
         <td><%= number_to_currency(plan_usage.amount.to_i / 100) %></td>
-        <td><%= plan_usage.max_unit_limit %></td>
+        <td><%= plan_usage.feature_max_limit %></td>
         <td><%= plan_usage.increased_units %></td>
         <td><%= link_to 'CHANGE LIMIT +',edit_user_plan_usage_path(@user.id ,plan_usage.id) ,class: 'btn btn-dark'%></td>
         </tr>

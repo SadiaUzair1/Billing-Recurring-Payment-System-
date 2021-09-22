@@ -79,7 +79,10 @@ class FeaturesController < ApplicationController
   def update_plan_usage
     plan_usages = PlanUsage.all
     plan_usages.each do |plan_usage|
-      plan_usage.update(amount: @feature_param[:total_amount]) if plan_usage.features_name == @feature_param[:name]
+      if plan_usage.features_name == @feature_param[:name]
+        plan_usage.update(amount: @feature_param[:total_amount], features_name: @feature_param[:name],
+                          feature_max_limit: @feature_param[:max_unit_limit])
+      end
     end
   end
 
