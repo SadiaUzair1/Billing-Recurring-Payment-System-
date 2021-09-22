@@ -14,8 +14,8 @@ class CheckoutsController < ApplicationController
                                                     quantity: 1
                                                   }],
                                                   mode: 'payment',
-                                                  success_url: users_url,
-                                                  cancel_url: users_url
+                                                  success_url: 'https://billingandpayment-sadia.herokuapp.com/',
+                                                  cancel_url: 'https://billingandpayment-sadia.herokuapp.com/'
                                                 })
     respond_to do |format|
       format.js
