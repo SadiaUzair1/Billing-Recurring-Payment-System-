@@ -1,0 +1,27 @@
+<h1> PAYMENTS</h1>
+
+<table class='table table-striped'>
+  <thead>
+    <tr>
+      <th>User Id</th>
+      <th>Payment</th>
+      <th>Subscription Id</th>
+      <th>Plan Id</th>
+      <th>Payment Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @payments.each do |payment| %>
+    <% plan = Plan.find_by(id: payment.plan_id)%>
+    <%user = User.find_by(id:payment.user_id)%>
+      <tr>
+        <td><%=user.name%></td>
+        <td><%= number_to_currency(payment.payment / 100) %></td>
+        <td><%=payment.subscription_id %></td>
+        <td><%=plan.name %></td>
+        <td><%=payment.payment_date%></td>
+      </tr>
+    <%end%>
+  </tbody>
+</table>
+<br>

@@ -1,18 +1,20 @@
 
 <% if @current_user.userType == 'admin'%>
-<td><%= link_to 'CHARGE ACCOUNTS', charge_account_users_path ,class: 'btn btn-dark'%></td>
-
 <h1> BUYERS</h1>
+
+
+<td><%= link_to 'CHARGE ACCOUNTS', charge_account_users_path ,class: 'btn btn-dark'%></td>
 <br/>
 <br/>
+
 <table class='table table-striped'>
   <thead>
     <tr>
-      <th>USER</th>
-     <th colspan='2'></th>
+      <th>BUYERS</th>
     </tr>
   </thead>
   <tbody>
+  <%= link_to 'Invite Buyer ' ,  new_user_invitation_path, class: 'btn btn-dark'%>
     <% @user.each do |user| %>
         <tr>
        <% if user.userType != 'admin'%>

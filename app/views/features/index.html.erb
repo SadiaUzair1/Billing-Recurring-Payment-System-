@@ -5,9 +5,7 @@
       <th>CODE PRICE PER UNIT</th>
       <th>PRICE PER UNIT</th>
       <th>MAX LIMIT</th>
-      <th>TOTAL</th>
-     <th colspan='4'></th>
-    </tr>
+      </tr>
   </thead>
 
   <tbody>
@@ -17,9 +15,10 @@
           <td><%= feature.code %></td>
           <td><%= number_to_currency(feature.unit_price /  100)%></td>
           <td><%= feature.max_unit_limit %></td>
-          <td><%= number_to_currency(feature.total_amount / 100)%></td>
-          <td><%= link_to 'Edit',  edit_user_plan_feature_path(@user.id, @plan, feature), class: 'btn btn-dark' %></td>
-          <td><%= link_to 'DELETE FEATURE',user_plan_feature_path(@user, @plan, feature), class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%if @user.userType == 'admin'%>
+            <td><%= link_to 'Edit',  edit_user_plan_feature_path(@user.id, @plan, feature), class: 'btn btn-dark' %></td>
+            <td><%= link_to 'Delete',user_plan_feature_path(@user, @plan, feature), class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+          <%end%>
         </tr>
     <% end %>
   </tbody>

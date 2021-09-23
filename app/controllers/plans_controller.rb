@@ -1,11 +1,16 @@
 # frozen_string_literal: true
 
 class PlansController < ApplicationController
-  before_action :set_plan, only: [:index]
-  before_action :find_current_plan, only: [:destroy]
-  before_action :set_user, only: %i[index new create]
+  before_action :set_plan, only: %i[show edit update destroy]
+  before_action :set_user, only: %i[index new update edit create]
 
-  def index; end
+  def index
+    @plans = Plan.all
+  end
+
+  def show; end
+
+  def edit; end
 
   def new
     @plan = Plan.new
@@ -23,22 +28,28 @@ class PlansController < ApplicationController
     end
   end
 
+  def update
+    respond_to do |format|
+      if @plan.update(plan_params)
+        format.html { redirect_to user_plans_path(@user), notice: 'Plan is successfully updated.' }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+      end
+    end
+  end
+
   def destroy
     authorize @plan
     @plan.destroy
     respond_to do |format|
-      format.html { redirect_to user_plans_url, notice: 'Feature was successfully destroyed.' }
+      format.html { redirect_to user_plans_url, notice: 'Plan was successfully destroyed.' }
     end
   end
 
   private
 
-  def find_current_plan
-    @plan = Plan.find(params[:id])
-  end
-
   def set_plan
-    @plan = Plan.all
+    @plan = Plan.find(params[:id])
   end
 
   def set_user
@@ -46,6 +57,6 @@ class PlansController < ApplicationController
   end
 
   def plan_params
-    params.require(:plan).permit(:name, :plan_id, :monthly_fee)
+    params.require(:plan).permit(:name, :monthly_fee)
   end
 end

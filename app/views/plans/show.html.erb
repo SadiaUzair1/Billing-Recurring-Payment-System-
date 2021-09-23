@@ -1,1 +1,16 @@
-this is plan show
+<table class='table table-striped'>
+<%@user = current_user%>
+  <thead>
+    <tr>
+      <th>NAME</th>
+      <th>MONTHLY FEE</th>
+    </tr>
+  </thead>
+  <tbody>
+        <tr>
+          <td><%= @plan.name %></td>
+          <td><%= number_to_currency(@plan.monthly_fee/100) %></td>
+          <td><%= link_to 'FEATURES', user_plan_features_path(@user.id, @plan.id), class: 'btn btn-dark' %></td>
+          </tr>
+  </tbody>
+</table>

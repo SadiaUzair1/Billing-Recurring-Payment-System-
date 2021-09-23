@@ -11,14 +11,14 @@
     </tr>
   </thead>
   <tbody>
-    <% @plan_usage.each do |plan_usage| %>
+    <% @usages.each do |usage| %>
         <tr>
-        <td><%= plan_usage.plan_name %></td>
-        <td><%= plan_usage.features_name %></td>
-        <td><%= number_to_currency(plan_usage.amount.to_i / 100) %></td>
-        <td><%= plan_usage.feature_max_limit %></td>
-        <td><%= plan_usage.increased_units %></td>
-        <td><%= link_to 'CHANGE LIMIT +',edit_user_plan_usage_path(@user.id ,plan_usage.id) ,class: 'btn btn-dark'%></td>
+        <td><%= usage.plan_name %></td>
+        <td><%= usage.features_name %></td>
+        <td><%= number_to_currency(usage.amount.to_i / 100) %></td>
+        <td><%= usage.feature_max_limit %></td>
+        <td><%= usage.increased_units %></td>
+        <td><%= link_to 'CHANGE LIMIT +',edit_user_usage_path(@user.id ,usage.id) ,class: 'btn btn-dark'%></td>
         </tr>
     <% end %>
   </tbody>

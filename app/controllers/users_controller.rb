@@ -50,11 +50,6 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
-  def invite
-    @user = current_user
-    User.invite!(email: 'sadia.uzair@devsinc.com', name: 'sadia')
-  end
-
   private
 
   def set_user
