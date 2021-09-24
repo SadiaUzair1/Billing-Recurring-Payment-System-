@@ -11,7 +11,6 @@ class UsagesController < ApplicationController
   end
 
   def update
-    byebug
     respond_to do |format|
       if @usage.update(usage_params)
         format.html { redirect_to users_path, notice: 'Limit for user is increased successfully.' }
