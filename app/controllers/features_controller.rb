@@ -31,7 +31,7 @@ class FeaturesController < ApplicationController
 
   def update
     respond_to do |format|
-      if @feature.update(feature_params)
+      if @features.update(feature_params)
         format.html { redirect_to user_plan_features_path, notice: 'Feature is successfully updated.' }
       else
         format.html { render :edit, status: :unprocessable_entity }

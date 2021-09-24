@@ -11,8 +11,7 @@ Rails.application.routes.draw do
       resources :subscriptions
       resources :checkouts
     end
-    resources :plan_usages
-    post 'checkouts/create', to: 'checkouts#create', as: 'checkouts'
+    resources :usages
   end
   root 'users#home'
 end

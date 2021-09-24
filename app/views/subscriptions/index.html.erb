@@ -1,11 +1,13 @@
 <h1>SUBSCRIPTIONS</h1>
 <br/>
+<%user = current_user%>
 <br/>
 <table class='table table-striped'>
   <thead>
     <tr>
       <th>PLANS</th>
       <th>FEATURES</th>
+      <th>CODE</th>
       <th>USED UNITS</th>
     </tr>
   </thead>
@@ -17,9 +19,14 @@
         <% usages.each do |usage|%>
         <%feature = Feature.find_by(id:usage.feature_id)%>
         <%plan = Plan.find_by(id:usage.plan_id)%>
-          <tr><td><%=plan.name %></td>
-          <td><%= feature.name %></td>
-          <td><%= usage.used_units%></td>
+          <tr>
+            <td><%=plan.name %></td>
+            <td><%= feature.name %></td>
+            <td><%= feature.code %></td>
+            <td><%= usage.used_units%></td>
+            <%if user.userType =='admin'%>
+              <td><%= link_to 'CHANGE LIMIT +',edit_user_usage_path(user.id, usage.id),class: 'btn btn-dark'%></td>
+            <%end%>
           </tr>
         <%end%>
       <%end%>

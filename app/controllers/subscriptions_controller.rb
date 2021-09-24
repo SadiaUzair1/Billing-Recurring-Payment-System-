@@ -2,7 +2,6 @@
 
 class SubscriptionsController < ApplicationController
   def index
-    @user = current_user
-    @subscriptions = Subscription.all
+    @user = User.find_by(id: params[:user_id])
   end
 end
