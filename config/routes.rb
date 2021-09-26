@@ -14,5 +14,6 @@ Rails.application.routes.draw do
     resources :usages
   end
 
+  get '/search', to: 'users#search'
   root 'users#home'
 end
