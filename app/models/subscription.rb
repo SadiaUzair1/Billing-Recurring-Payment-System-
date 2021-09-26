@@ -8,7 +8,16 @@ class Subscription < ApplicationRecord
 
   has_many :payments, dependent: :destroy
 
-  validates :user_id, :plan_id, presence: true
+  validates :status, presence: true
 
   enum status: { subscribed: 1, unsubscribed: 0 }
+
+  # def check_subscription(user, plan)
+  #   @subscription = if where(plan_id: plan.id).exists? &&
+  #                      where(user_id: user.id).exists?
+  #                     find_by(plan_id: plan.id, user_id: user.id)
+  #                   else
+  #                     user.subscriptions.create(plan_id: plan.id, status: 1)
+  #                   end
+  # end
 end

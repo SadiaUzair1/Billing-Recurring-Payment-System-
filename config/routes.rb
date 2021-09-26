@@ -13,5 +13,7 @@ Rails.application.routes.draw do
     end
     resources :usages
   end
+
+  get '/search', to: 'users#search'
   root 'users#home'
 end

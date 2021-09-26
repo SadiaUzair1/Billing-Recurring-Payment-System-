@@ -1,0 +1,22 @@
+<h1>SEARCH RESULTS</h1>
+  <br/>
+<%plan = Plan.all%>
+  <table class='table table-striped'>
+    <thead>
+      <tr>
+        <th>BUYER</th>
+        <th colspan = '2'>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+        <td><%= user.email %></td>
+        <% if user.userType != 'admin'%>
+            <td><%= link_to 'Subscribed Plans', user_plan_subscriptions_path(user.id,plan) ,class: 'btn btn-dark'%></td>
+            <td><%= link_to 'Delete User', user_path(user.id),class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <%end%>
+        </tr>
+      <%end%>
+    </tbody>
+  </table>

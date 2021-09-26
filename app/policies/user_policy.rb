@@ -12,4 +12,8 @@ class UserPolicy < ApplicationPolicy
   def destroy?
     admin?
   end
+
+  def search?
+    admin?
+  end
 end

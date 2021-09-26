@@ -50,6 +50,11 @@ class UsersController < ApplicationController
     redirect_to users_path
   end
 
+  def search
+    authorize @user
+    @users = User.where('email LIKE?', "%#{params[:q]}%")
+  end
+
   private
 
   def set_user

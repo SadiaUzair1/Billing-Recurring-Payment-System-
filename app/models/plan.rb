@@ -7,5 +7,6 @@ class Plan < ApplicationRecord
 
   has_many :users, through: :subscriptions
 
-  validates :name, presence: true
+  validates :name, :monthly_fee, presence: true
+  validates :monthly_fee, numericality: { greater_than: 0 }
 end

@@ -3,5 +3,5 @@
 class Payment < ApplicationRecord
   belongs_to :subscription
 
-  validates :user_id, :payment, presence: true
+  validates :payment, presence: true
 end

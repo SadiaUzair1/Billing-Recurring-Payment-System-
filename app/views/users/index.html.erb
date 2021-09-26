@@ -1,7 +1,12 @@
 
 <% if @current_user.userType == 'admin'%>
   <h1> BUYERS</h1>
-  <td><%= link_to 'CHARGE ACCOUNTS', charge_account_users_path ,class: 'btn btn-dark'%></td>
+  <form class="d-flex" action="/search" >
+        <input class="form-control me-2" name ='q' type="text" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+      <br/>
+  <%= link_to 'CHARGE ACCOUNTS', charge_account_users_path ,class: 'btn btn-dark'%>
   <br/>
   <br/>
 <%plan = Plan.all%>
@@ -13,11 +18,12 @@
       </tr>
     </thead>
     <tbody>
-    <%= link_to 'Invite Buyer ' ,  new_user_invitation_path, class: 'btn btn-dark'%>
+    <br/>
+    <%= link_to 'Invite Buyer ' ,  new_user_invitation_path, class: 'btn btn-success btn-lg .right-*' %>
     <% @user.each do |user| %>
       <tr>
+      <td><%= user.email %></td>
       <% if user.userType != 'admin'%>
-          <td><%= user.email %></td>
           <td><%= link_to 'Subscribed Plans', user_plan_subscriptions_path(user.id,plan) ,class: 'btn btn-dark'%></td>
           <td><%= link_to 'Delete User', user_path(user.id),class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <%end%>

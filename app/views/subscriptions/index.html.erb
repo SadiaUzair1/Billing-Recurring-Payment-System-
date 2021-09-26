@@ -9,7 +9,7 @@
       <th>FEATURES</th>
       <th>CODE</th>
       <th>USED UNITS</th>
-      <th></th>
+      <th colspan = '1'>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +25,9 @@
             <td><%= feature.name %></td>
             <td><%= feature.code %></td>
             <td><%= usage.used_units%></td>
+            <% if @user.billing_date + 1.month == Time.zone.today%>
+              <td><%= link_to 'PAY',user_plan_checkouts_path(@user.id, plan.id) ,class: 'btn btn-dark', method: :post, remote: true %></td>
+            <%end%>
             <%if user.userType =='admin'%>
               <td><%= link_to 'CHANGE LIMIT +',edit_user_usage_path(user.id, usage.id),class: 'btn btn-dark'%></td>
             <%end%>

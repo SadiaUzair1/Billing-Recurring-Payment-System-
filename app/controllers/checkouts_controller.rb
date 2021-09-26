@@ -2,29 +2,24 @@
 
 class CheckoutsController < ApplicationController
   before_action :set_plan, only: [:create]
-  after_action :add_subscriptions_and_payments, only: [:create]
 
   def index
     @payments = Payment.all
   end
 
   def create
-    @session = Stripe::Checkout::Session.create({
-                                                  payment_method_types: ['card'],
-                                                  line_items: [{
-                                                    name: @plan.name,
-                                                    amount: @plan.monthly_fee.to_i,
-                                                    currency: 'usd',
-                                                    quantity: 1
-                                                  }],
-                                                  mode: 'payment',
-                                                  success_url: users_url,
-                                                  cancel_url: users_url
-                                                })
+    @user = current_user
+    @subscription = Subscription.find_or_create_by(plan_id: @plan.id,
+                                                   user_id: @user.id)
+    return unless @subscription.subscribed?
 
+    data_entry_in_payments
+    @session = CheckoutService.new({ plan: @plan,
+                                     user: @user, used_units: 0, url: users_url }).call
     respond_to do |format|
       format.js
     end
+    add_usage
   end
 
   private
@@ -33,41 +28,18 @@ class CheckoutsController < ApplicationController
     @plan = Plan.find_by(id: params[:plan_id])
   end
 
-  def add_subscriptions_and_payments
-    @user = current_user
-    check_subscription
-    return unless @subscription.subscribed?
-
+  def data_entry_in_payments
     @subscription.payments.create(user_id: @user.id, payment: @plan.monthly_fee,
                                   plan_id: @plan.id, payment_date: Time.zone.today)
-
-    add_usage
-  end
-
-  def check_subscription
-    @subscription = if Subscription.where(plan_id: @plan.id).exists? &&
-                       Subscription.where(user_id: @user.id).exists?
-                      Subscription.find_by(plan_id: @plan.id, user_id: @user.id)
-                    else
-                      @user.subscriptions.create(plan_id: @plan.id, status: 1)
-                    end
   end
 
   def add_usage
-    @user = current_user
     features = @plan.features
     features.each do |feature|
-      next if Usage.where(plan_id: @plan.id).exists? &&
-              Usage.where(feature_id: feature.id).exists?
-
-      @usage = @subscription.usages.create(user_id: @user.id, plan_id: @plan.id,
-                                           feature_id: feature.id,
-                                           used_units: feature.max_unit_limit)
+      @usage = @subscription.usages.find_or_create_by(user_id: @user.id, plan_id: @plan.id,
+                                                      feature_id: feature.id,
+                                                      used_units: feature.max_unit_limit)
     end
-    email_verifiction
-  end
-
-  def email_verifiction
     @user = current_user
     CheckoutMailer.with(user: @user).subscription_confirmation.deliver_now
   end
