@@ -14,8 +14,9 @@
     </tr>
   </thead>
   <tbody>
-    <tr>
+
       <% @plans.each do |plan| %>
+        <tr>
         <td><%= link_to plan.name, user_plan_path(@user.id ,plan.id) ,class: 'btn btn-dark'%></td>
         <td><%= number_to_currency(plan.monthly_fee/100) %></td>
 
@@ -26,8 +27,9 @@
         <% else %>
            <td><%= link_to 'SUBSCRIBE',  user_plan_checkouts_path(@user.id, plan.id) ,class: 'btn btn-dark', method: :post, remote: true %></td>
         <% end %>
-      <% end %>
     </tr>
+      <% end %>
+
   </tbody>
 </table>
 <br>

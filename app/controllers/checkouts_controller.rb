@@ -11,11 +11,12 @@ class CheckoutsController < ApplicationController
     @user = current_user
     @subscription = Subscription.find_or_create_by(plan_id: @plan.id,
                                                    user_id: @user.id)
-    return unless @subscription.subscribed?
+    return flash.alert = 'Already Subscribed.' if @subscription.subscribed?
 
     data_entry_in_payments
     @session = CheckoutService.new({ plan: @plan,
                                      user: @user, used_units: 0, url: users_url }).call
+
     respond_to do |format|
       format.js
     end

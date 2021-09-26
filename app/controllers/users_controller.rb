@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[index destroy]
+  before_action :set_user, only: %i[index destroy search]
   def index
     authorize @user
     @current_user = current_user

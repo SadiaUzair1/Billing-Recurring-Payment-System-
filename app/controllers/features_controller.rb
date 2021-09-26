@@ -18,7 +18,7 @@ class FeaturesController < ApplicationController
   def create
     @feature = @plan.features.new(feature_params)
     respond_to do |format|
-      if feature.save
+      if @feature.save
         format.html { redirect_to user_plan_features_path(@user, @plan), notice: 'Feature was successfully updated' }
       else
         format.html do

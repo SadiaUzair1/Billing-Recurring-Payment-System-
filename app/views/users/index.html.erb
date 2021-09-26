@@ -2,9 +2,9 @@
 <% if @current_user.userType == 'admin'%>
   <h1> BUYERS</h1>
   <form class="d-flex" action="/search" >
-        <input class="form-control me-2" name ='q' type="text" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
-      </form>
+    <input class="form-control me-2" name ='q' type="text" placeholder="Search" aria-label="Search">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
       <br/>
   <%= link_to 'CHARGE ACCOUNTS', charge_account_users_path ,class: 'btn btn-dark'%>
   <br/>
