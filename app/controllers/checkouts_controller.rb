@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class CheckoutsController < ApplicationController
-  before_action :set_plan, only: [:create]
+  before_action :set_plan,  only: [:create]
 
   def index
     @payments = Payment.all

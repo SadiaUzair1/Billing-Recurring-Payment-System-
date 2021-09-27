@@ -40,9 +40,10 @@ class PlansController < ApplicationController
 
   def destroy
     authorize @plan
-    @plan.destroy
-    respond_to do |format|
-      format.html { redirect_to user_plans_url, notice: 'Plan was successfully destroyed.' }
+    if @plan.destroy
+      redirect_to user_plans_url, notice: 'Plan was successfully destroyed.'
+    else
+      flash[:alert] = 'Plan not destroyed!'
     end
   end
 

@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class RemoveForeignKeysFromPayments < ActiveRecord::Migration[6.1]
-  def change
-
-  end
+  def change; end
 end
+dsbjxads7
