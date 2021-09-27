@@ -16,7 +16,6 @@
   <%if @user.userType == 'buyer'%>
     <% @user.subscriptions.each do |subscription| %>
       <% usages = subscription.usages%>
-      <% if subscription.subscribed? %>
         <% usages.each do |usage|%>
         <%feature = Feature.find_by(id:usage.feature_id)%>
         <%plan = Plan.find_by(id:usage.plan_id)%>
@@ -33,7 +32,7 @@
             <%end%>
           </tr>
         <%end%>
-      <%end%>
+
     <%end%>
   <%end%>
   </tbody>
