@@ -37,7 +37,7 @@ class CheckoutsController < ApplicationController
   def add_usage
     features = @plan.features
     features.each do |feature|
-      @usage = @subscription.usages.find_or_create_by(user_id: @user.id, plan_id: @plan.id,
+      @usage = @subscription.usages.find_or_create_by(plan_id: @plan.id,
                                                       feature_id: feature.id,
                                                       used_units: feature.max_unit_limit)
     end
