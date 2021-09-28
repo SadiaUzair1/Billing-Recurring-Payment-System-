@@ -10,7 +10,9 @@ class PlansController < ApplicationController
 
   def show; end
 
-  def edit; end
+  def edit
+    authorize @plan
+  end
 
   def new
     @plan = Plan.new
@@ -19,6 +21,7 @@ class PlansController < ApplicationController
 
   def create
     @plan = Plan.new(plan_params)
+    authorize @plan
     respond_to do |format|
       if @plan.save
         format.html { redirect_to user_plans_path, notice: 'Plan was successfully created.' }
@@ -29,6 +32,7 @@ class PlansController < ApplicationController
   end
 
   def update
+    authorize @plan
     respond_to do |format|
       if @plan.update(plan_params)
         format.html { redirect_to user_plans_path(@user), notice: 'Plan is successfully updated.' }
@@ -50,7 +54,7 @@ class PlansController < ApplicationController
   private
 
   def set_plan
-    @plan = Plan.find(params[:id])
+    @plan = Plan.find_by(id: params[:id])
   end
 
   def set_user

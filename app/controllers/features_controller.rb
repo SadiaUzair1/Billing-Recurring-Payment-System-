@@ -13,10 +13,13 @@ class FeaturesController < ApplicationController
     authorize @features
   end
 
-  def edit; end
+  def edit
+    authorize @features
+  end
 
   def create
     @feature = @plan.features.new(feature_params)
+    authorize @feature
     respond_to do |format|
       if @feature.save
         format.html { redirect_to user_plan_features_path(@user, @plan), notice: 'Feature was successfully updated' }
@@ -30,6 +33,7 @@ class FeaturesController < ApplicationController
   end
 
   def update
+    authorize @features
     respond_to do |format|
       if @features.update(feature_params)
         format.html { redirect_to user_plan_features_path, notice: 'Feature is successfully updated.' }
@@ -47,11 +51,11 @@ class FeaturesController < ApplicationController
   private
 
   def set_plan
-    @plan = Plan.find(params[:plan_id])
+    @plan = Plan.find_by(id: params[:plan_id])
   end
 
   def set_feature
-    @features = @plan.features.find(params[:id])
+    @features = @plan.features.find_by(id: params[:id])
   end
 
   def set_user

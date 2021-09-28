@@ -7,7 +7,7 @@ class UsagesController < ApplicationController
   def index; end
 
   def edit
-    @plan = Usage.find(params[:id])
+    @plan = Usage.find_by(id: params[:id])
   end
 
   def update

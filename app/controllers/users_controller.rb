@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   def show; end
 
   def edit
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
   end
 
   def update
@@ -31,18 +31,15 @@ class UsersController < ApplicationController
 
   def destroy
     authorize @user
-    @user = User.find(params[:id])
+    @user = User.find_by(id: params[:id])
     @user.destroy
     redirect_to users_url if @user.destroy
   end
 
-  def home; end
-
   def charge_account
     users = User.all
-
     users.each do |user|
-      if user.userType != 'buyer'
+      if user.userType == 'buyer'
         @buyer = User.find_by(id: user.id)
         PaymentMailer.with(user: @buyer).payment_reminder.deliver_now
       end
@@ -52,7 +49,7 @@ class UsersController < ApplicationController
 
   def search
     authorize @user
-    @users = User.where('email LIKE?', "%#{params[:q]}%")
+    @users = User.where('email ILIKE?', "%#{params[:q]}%")
   end
 
   private
