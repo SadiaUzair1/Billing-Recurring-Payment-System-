@@ -7,9 +7,9 @@ Rails.application.routes.draw do
       get 'charge_account'
     end
     resources :plans do
-      resources :features, except: [:show] 
-      resources :subscriptions, only: [:index, :create]
-      resources :checkouts, only: [:index, :create]
+      resources :features, except: [:show]
+      resources :subscriptions, only: %i[index create]
+      resources :checkouts, only: %i[index create]
     end
     resources :usages
   end

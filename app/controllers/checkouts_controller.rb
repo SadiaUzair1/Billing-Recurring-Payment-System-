@@ -10,10 +10,9 @@ class CheckoutsController < ApplicationController
   def create
     @user = current_user
     @subscription = Subscription.find_or_initialize_by(plan_id: @plan.id,
-                                                      user_id: @user.id, status: 1)
-    
+                                                       user_id: @user.id, status: 1)
+
     return render 'error' unless @subscription.save
-    
 
     data_entry_in_payments
     @session = CheckoutService.new({ plan: @plan,
@@ -33,7 +32,7 @@ class CheckoutsController < ApplicationController
 
   def data_entry_in_payments
     payment = @subscription.payments.new(user_id: @user.id, payment: @plan.monthly_fee,
-                                  plan_id: @plan.id, payment_date: Time.zone.today)
+                                         plan_id: @plan.id, payment_date: Time.zone.today)
     return  flash.alert = 'Transaction Done.' if payment.save
   end
 
@@ -41,14 +40,14 @@ class CheckoutsController < ApplicationController
     features = @plan.features
     features.each do |feature|
       @usage = @subscription.usages.find_or_initialize_by(plan_id: @plan.id,
-                                                      feature_id: feature.id,
-                                                      used_units: feature.max_unit_limit)
+                                                          feature_id: feature.id,
+                                                          used_units: feature.max_unit_limit)
     end
-     if @usage.save
+    if @usage.save
       @user = current_user
       CheckoutMailer.with(user: @user).subscription_confirmation.deliver_now
-     else
+    else
       flash.alert = 'Transaction failed.'
-     end
+    end
   end
 end
