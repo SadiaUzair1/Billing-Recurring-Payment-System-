@@ -37,12 +37,9 @@ class UsersController < ApplicationController
   end
 
   def charge_account
-    users = User.all
+    users = User.all.where(:user_type, 'buyer')
     users.each do |user|
-      if user.user_type == 'buyer'
-        @buyer = User.find_by(id: user.id)
-        PaymentMailer.with(user: @buyer).payment_reminder.deliver_now
-      end
+      PaymentMailer.with(user: user).payment_reminder.deliver_now
     end
     redirect_to users_path
   end
