@@ -5,10 +5,7 @@ class ApplicationPolicy
 
   def initialize(user, record)
     @user = user
-<<<<<<< HEAD
 
-=======
->>>>>>> d74b9ee27d0944e63077250fbb777bb883d34ae0
     @record = record
   end
 
