@@ -2,12 +2,8 @@
 
 class FeaturesController < ApplicationController
   before_action :set_plan, :set_user
-<<<<<<< HEAD
   before_action :set_feature, only: %i[destroy update edit]
-=======
-  before_action :set_feature, only: %i[destroy update]
-  after_action :set_plan_amount, only: %i[create update destroy]
->>>>>>> d74b9ee27d0944e63077250fbb777bb883d34ae0
+
 
   def index
     @features = @plan.features
@@ -61,7 +57,6 @@ class FeaturesController < ApplicationController
 
   def set_feature
     @features = @plan.features.find_by(id: params[:id])
->>>>>>> d74b9ee27d0944e63077250fbb777bb883d34ae0
   end
 
   def set_user
