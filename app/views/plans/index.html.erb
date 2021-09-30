@@ -1,5 +1,7 @@
 <h1> PLANS</h1>
+
 <% if @user.user_type == 'admin'%>
+
   <%= link_to 'ADD PLAN', new_user_plan_path(@user.id)  , class: 'btn btn-dark'  %>
 <%end%>
 <br/>
@@ -9,6 +11,7 @@
     <tr>
       <th>NAME</th>
       <th>MONTHLY FEE</th>
+
 
         <th colspan = '3'>
     </tr>
@@ -32,4 +35,5 @@
 
   </tbody>
 </table>
+
 <br>

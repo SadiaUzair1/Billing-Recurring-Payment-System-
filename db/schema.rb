@@ -10,7 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 2021_09_30_073536) do
+=======
+ActiveRecord::Schema.define(version: 2021_09_20_051847) do
+
+>>>>>>> d74b9ee27d0944e63077250fbb777bb883d34ae0
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -30,6 +35,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_073536) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority"
   end
 
+
   create_table "features", force: :cascade do |t|
     t.string "name"
     t.string "code", default: ""
@@ -42,6 +48,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_073536) do
     t.index ["plan_id"], name: "index_features_on_plan_id"
     t.check_constraint "max_unit_limit > 0", name: "limit_check"
     t.check_constraint "unit_price > (100)::double precision", name: "price_check"
+
   end
 
   create_table "payments", force: :cascade do |t|
@@ -103,6 +110,7 @@ ActiveRecord::Schema.define(version: 2021_09_30_073536) do
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
     t.datetime "billing_date", default: "2021-09-29 00:00:00", null: false
+
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"

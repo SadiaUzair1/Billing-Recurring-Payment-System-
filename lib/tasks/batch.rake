@@ -9,6 +9,7 @@ namespace :batch do
 
       @user = user
       PaymentMailer.with(user: @user).payment_reminder.deliver_now
+
     end
   end
 end

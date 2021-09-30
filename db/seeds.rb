@@ -13,7 +13,7 @@ User.create(
   email: 'buyer@gmail.com',
   password: 'buyerr',
   user_type: 'buyer'
-)
+
 User.create(
   name: 'admin',
   email: 'admin@gmail.com',

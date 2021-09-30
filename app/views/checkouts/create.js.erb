@@ -1,4 +1,5 @@
 var stripe = Stripe("<%= Rails.application.secrets.stripe_publishable_key %>");
+
 stripe.redirectToCheckout({
   sessionId: '<%= @session.id %>'
 }).then(function (result) {

@@ -5,7 +5,10 @@ class ApplicationPolicy
 
   def initialize(user, record)
     @user = user
+<<<<<<< HEAD
 
+=======
+>>>>>>> d74b9ee27d0944e63077250fbb777bb883d34ae0
     @record = record
   end
 
@@ -53,10 +56,10 @@ class ApplicationPolicy
   end
 
   def admin?
-    user.user_type == 'admin'
+   user.user_type == 'admin'
   end
 
   def buyer?
     user.user_type == 'buyer'
-  end
+ end
 end

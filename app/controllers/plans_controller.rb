@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PlansController < ApplicationController
-  before_action :set_plan, only: %i[show edit update destroy]
+ before_action :set_plan, only: %i[show edit update destroy]
   before_action :set_user, only: %i[index new update edit create]
 
   def index

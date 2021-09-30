@@ -17,6 +17,7 @@ AllCops:
     - 'config/initializers/devise.rb'
     - 'config/application.rb'
 
+
 Metrics/LineLength:
   Max: 120
 

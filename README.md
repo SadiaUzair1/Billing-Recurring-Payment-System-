@@ -12,6 +12,7 @@ To be fast (confirmation within seconds), this system accepts stripe transaction
 . With db Postgres version psql (PostgreSQL) 12.8 
 
 
+
 . Configure stripe into your application
   . Add your stripe public and secret keys into your secrets.yml file.
 

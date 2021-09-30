@@ -1,5 +1,7 @@
+
 <%user = current_user%>
 <%plan = Plan.all%>
+
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container-fluid">
@@ -12,6 +14,7 @@
         <li class="nav-item">
         <% if user_signed_in?%>
 
+
           <% if user.user_type == 'admin'%>
             <%= link_to 'Buyers ' ,  users_path, class: "navbar-brand"%>
             <%= link_to 'Payments ' ,  user_plan_checkouts_path(user.id,plan), class: "navbar-brand"%>
@@ -20,6 +23,7 @@
           <%end%>
           <%= link_to 'Plans' ,user_plans_path(user.id),  class: "navbar-brand"%>
 
+
           <%= link_to 'Sign Out ' ,  destroy_user_session_path, method: :delete, class: "navbar-brand"%>
 
         <% else %>
@@ -27,7 +31,6 @@
         <%end%>
         </li>
       </ul>
-
     </div>
   </div>
 </nav>

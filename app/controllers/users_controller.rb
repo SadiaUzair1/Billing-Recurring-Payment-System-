@@ -1,7 +1,11 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
+<<<<<<< HEAD
   before_action :set_user, only: %i[index destroy search]
+=======
+  before_action :set_user, only: %i[index destroy]
+>>>>>>> d74b9ee27d0944e63077250fbb777bb883d34ae0
   def index
     authorize @user
     @current_user = current_user
@@ -16,7 +20,7 @@ class UsersController < ApplicationController
   def show; end
 
   def edit
-    @user = User.find_by(id: params[:id])
+   @user = User.find_by(id: params[:id])
   end
 
   def update
@@ -31,7 +35,7 @@ class UsersController < ApplicationController
 
   def destroy
     authorize @user
-    @user = User.find_by(id: params[:id])
+   @user = User.find_by(id: params[:id])
     @user.destroy
     redirect_to users_url if @user.destroy
   end
