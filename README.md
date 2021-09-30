@@ -8,6 +8,8 @@ Billing And Recurring System is implemented as a Progressive Web App.
 To be fast (confirmation within seconds), this system accepts stripe transactions.
 
 . This application is built on ruby version 2.7
+. Using rails version 6.1.4.1
+. With db Postgres version psql (PostgreSQL) 12.8 
 
 
 . Configure stripe into your application

@@ -1,5 +1,5 @@
 
-<% if @current_user.userType == 'admin'%>
+<% if @current_user.user_type == 'admin'%>
   <h1> BUYERS</h1>
   <form class="d-flex" action="/search" >
     <input class="form-control me-2" name ='q' type="text" placeholder="Search" aria-label="Search">
@@ -23,7 +23,7 @@
     <% @user.each do |user| %>
       <tr>
       <td><%= user.email %></td>
-      <% if user.userType != 'admin'%>
+      <% if user.user_type != 'admin'%>
           <td><%= link_to 'Subscribed Plans', user_plan_subscriptions_path(user.id,plan) ,class: 'btn btn-dark'%></td>
           <td><%= link_to 'Delete User', user_path(user.id),class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
       <%end%>

@@ -1,5 +1,5 @@
 <h1> PLANS</h1>
-<% if @user.userType == 'admin'%>
+<% if @user.user_type == 'admin'%>
   <%= link_to 'ADD PLAN', new_user_plan_path(@user.id)  , class: 'btn btn-dark'  %>
 <%end%>
 <br/>
@@ -20,7 +20,7 @@
         <td><%= link_to plan.name, user_plan_path(@user.id ,plan.id) ,class: 'btn btn-dark'%></td>
         <td><%= number_to_currency(plan.monthly_fee/100) %></td>
 
-        <% if @user.userType == 'admin'%>
+        <% if @user.user_type == 'admin'%>
           <td><%= link_to 'Edit Plan', edit_user_plan_path(@user.id ,plan.id) ,class: 'btn btn-dark'%></td>
           <td><%= link_to 'Add Feature', new_user_plan_feature_path(@user.id ,plan.id) ,class: 'btn btn-dark'%></td>
           <td><%= link_to 'Delete Plan', user_plan_path(@user.id, plan.id),class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>

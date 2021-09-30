@@ -39,7 +39,7 @@ class UsersController < ApplicationController
   def charge_account
     users = User.all
     users.each do |user|
-      if user.userType == 'buyer'
+      if user.user_type == 'buyer'
         @buyer = User.find_by(id: user.id)
         PaymentMailer.with(user: @buyer).payment_reminder.deliver_now
       end
@@ -59,6 +59,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:email, :password, :userType, :name)
+    params.require(:user).permit(:email, :password, :user_type, :name)
   end
 end

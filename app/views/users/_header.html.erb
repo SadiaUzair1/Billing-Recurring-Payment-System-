@@ -12,7 +12,7 @@
         <li class="nav-item">
         <% if user_signed_in?%>
 
-          <% if user.userType == 'admin'%>
+          <% if user.user_type == 'admin'%>
             <%= link_to 'Buyers ' ,  users_path, class: "navbar-brand"%>
             <%= link_to 'Payments ' ,  user_plan_checkouts_path(user.id,plan), class: "navbar-brand"%>
           <%else%>

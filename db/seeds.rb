@@ -12,11 +12,11 @@ User.create(
   name: 'buyer',
   email: 'buyer@gmail.com',
   password: 'buyerr',
-  userType: 'buyer'
+  user_type: 'buyer'
 )
 User.create(
   name: 'admin',
   email: 'admin@gmail.com',
   password: 'adminn',
-  userType: 'admin'
+  user_type: 'admin'
 )

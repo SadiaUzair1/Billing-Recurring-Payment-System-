@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_09_27_113137) do
+ActiveRecord::Schema.define(version: 2021_09_30_073536) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -50,7 +50,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_113137) do
     t.bigint "user_id"
     t.integer "payment", default: 0, null: false
     t.integer "plan_id", default: 0, null: false
-    t.date "payment_date", default: "2021-10-21", null: false
+    t.date "payment_date", default: "2021-10-29", null: false
     t.bigint "subscription_id"
     t.index ["subscription_id"], name: "index_payments_on_subscription_id"
     t.index ["user_id"], name: "index_payments_on_user_id"
@@ -74,7 +74,6 @@ ActiveRecord::Schema.define(version: 2021_09_27_113137) do
   end
 
   create_table "usages", force: :cascade do |t|
-    t.integer "user_id", default: 0, null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.integer "used_units", default: 1, null: false
@@ -88,7 +87,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_113137) do
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
-    t.string "userType", default: "buyer", null: false
+    t.string "user_type", default: "buyer", null: false
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -103,7 +102,7 @@ ActiveRecord::Schema.define(version: 2021_09_27_113137) do
     t.string "invited_by_type"
     t.bigint "invited_by_id"
     t.integer "invitations_count", default: 0
-    t.datetime "billing_date", default: "2021-09-23 00:00:00", null: false
+    t.datetime "billing_date", default: "2021-09-29 00:00:00", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["invitation_token"], name: "index_users_on_invitation_token", unique: true
     t.index ["invited_by_id"], name: "index_users_on_invited_by_id"
