@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
 class UsagesController < ApplicationController
-  before_action :set_user, only: %i[index edit update]
-  before_action :set_usage, only: %i[index edit update]
-
-  def index; end
+  before_action :set_user, only: %i[edit update]
+  before_action :set_usage, only: %i[edit update]
 
   def edit
     @plan = Usage.find_by(id: params[:id])

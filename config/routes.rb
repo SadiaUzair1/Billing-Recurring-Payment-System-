@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
-
   devise_for :users, controllers: { registration: 'users/registration#create' }
 
   resources :users do
@@ -19,5 +18,4 @@ Rails.application.routes.draw do
   get '/search', to: 'users#search'
   root 'users#home'
   match '*path', via: :all, to: redirect('/404')
-
 end

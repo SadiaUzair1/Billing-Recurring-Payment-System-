@@ -1,2 +1,10 @@
-<h1> BILLING AND PAYMENT SYSTEM</h1>
+<h1> BILLING AND PAYMENT SYSTEM </h1>
+
+<%if signed_in? %>
+	<% if current_user.image.attached? %>
+		<p><%= cl_image_tag current_user.image.key, width: 200 %></p>
+		<h1><%= current_user.name.upcase %></h1>
+	<% end %>
+<% end %>
+
 

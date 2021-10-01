@@ -8,7 +8,7 @@
 <div class='field mb-3'>
 
   <%= form.label :Amount, min: 101, required: true %>
-  <%= form.number_field :monthly_fee, class:'form-control'%>
+  <%= form.number_field :monthly_fee, class:'form-control', min: 1, max: 10000%>
 
 </div>
 

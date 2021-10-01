@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class PlansController < ApplicationController
- before_action :set_plan, only: %i[show edit update destroy]
+  before_action :set_plan, only: %i[show edit update destroy]
   before_action :set_user, only: %i[index new update edit create]
 
   def index
@@ -26,6 +26,7 @@ class PlansController < ApplicationController
       if @plan.save
         format.html { redirect_to user_plans_path, notice: 'Plan was successfully created.' }
       else
+        flash.now[:alert] = @plan.errors.full_messages
         format.html { render :new, status: :unprocessable_entity }
       end
     end

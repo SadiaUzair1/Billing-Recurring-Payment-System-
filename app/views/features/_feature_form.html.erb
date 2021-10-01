@@ -7,17 +7,17 @@
 
   <div class='field mb-3'>
     <%= form.label :code %>
-   <%= form.text_field :code, value: number_to_currency(form.object.code.to_f, delimiter: '', unit: ''), class:'form-control' %>
+   <%= form.text_field :code, class:'form-control', required: true %>
 </div>
 
   <div class='field mb-3'>
     <%= form.label :unit_price %>
-   <%= form.number_field :unit_price , class:'form-control', min: 101, required: true%>
+   <%= form.number_field :unit_price , class:'form-control', min: 101, max: 1000, required: true%>
   </div>
 
   <div class='field mb-3'>
     <%= form.label :max_unit_limit %>
-    <%= form.number_field :max_unit_limit , class:'form-control',min: 1,  required: true%>
+    <%= form.number_field :max_unit_limit , class:'form-control',min: 1, max: 100,  required: true%>
  </div>
 
 <br/>

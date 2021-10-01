@@ -7,15 +7,12 @@ require:
 AllCops:
   # Exclude auto-generated files by Rails
   TargetRubyVersion: 2.7
-  TargetRailsVersion: 5.2
+  TargetRailsVersion: 6.0
   Exclude:
     - 'db/schema.rb'
     - 'node_modules/**/*'
     - 'vendor/bundle/**/*'
     - 'bin/**/*'
-    - 'config/environments/development.rb'
-    - 'config/initializers/devise.rb'
-    - 'config/application.rb'
 
 
 Metrics/LineLength:

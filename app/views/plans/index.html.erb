@@ -1,19 +1,18 @@
 <h1> PLANS</h1>
 
-<% if @user.user_type == 'admin'%>
+<% if @user.admin?%>
 
   <%= link_to 'ADD PLAN', new_user_plan_path(@user.id)  , class: 'btn btn-dark'  %>
 <%end%>
+
 <br/>
 <br/>
 <table class='table table-striped'>
   <thead>
     <tr>
-      <th>NAME</th>
-      <th>MONTHLY FEE</th>
-
-
-        <th colspan = '3'>
+      <th> NAME </th>
+      <th> MONTHLY FEE</th>
+      <th colspan = '3'>
     </tr>
   </thead>
   <tbody>
@@ -22,14 +21,7 @@
         <tr>
         <td><%= link_to plan.name, user_plan_path(@user.id ,plan.id) ,class: 'btn btn-dark'%></td>
         <td><%= number_to_currency(plan.monthly_fee/100) %></td>
-
-        <% if @user.user_type == 'admin'%>
-          <td><%= link_to 'Edit Plan', edit_user_plan_path(@user.id ,plan.id) ,class: 'btn btn-dark'%></td>
-          <td><%= link_to 'Add Feature', new_user_plan_feature_path(@user.id ,plan.id) ,class: 'btn btn-dark'%></td>
-          <td><%= link_to 'Delete Plan', user_plan_path(@user.id, plan.id),class: 'btn btn-dark', method: :delete, data: { confirm: 'Are you sure?' } %></td>
-        <% else %>
-            <td><%= link_to 'SUBSCRIBE',  user_plan_checkouts_path(@user.id, plan.id) ,class: 'btn btn-dark', method: :post, remote: true %></td>
-        <%end%>
+        <%=display_options(@user, plan)%>
     </tr>
       <% end %>
 

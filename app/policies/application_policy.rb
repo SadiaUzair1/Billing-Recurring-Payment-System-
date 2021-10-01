@@ -53,10 +53,10 @@ class ApplicationPolicy
   end
 
   def admin?
-   user.user_type == 'admin'
+    user.admin?
   end
 
   def buyer?
-    user.user_type == 'buyer'
- end
+    user.buyer?
+  end
 end
