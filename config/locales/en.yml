@@ -31,3 +31,6 @@
 
 en:
   hello: "Hello world"
+  user:
+    not_autorized: "YOU ARE NOT AUTHORIZED" 
+    already_subscribed: 'YOU ARE ALREADY SUBSCRIBED'

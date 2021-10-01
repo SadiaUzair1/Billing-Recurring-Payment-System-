@@ -1,5 +1,5 @@
 <br/>
-<%= form_for @user, remote: true do |form| %>
+<%= form_for user, remote: true do |form| %>
 
 <div class="field mb-3">
   <%= form.label :name %>
@@ -17,7 +17,9 @@
 </div>
 
 <div class="field mb-3">
+
   <%= form.text_field :user_type, class:"form-control", type: :hidden, value: 'buyer'%>
+
 </div>
 
 <br/>

@@ -8,7 +8,7 @@ namespace :batch do
       next unless user.billing_date + 1.month == Time.zone.today
 
       @user = user
-      PaymentMailer.with(user: @user).payment_reminder.deliver_now
+      PaymentMailer.with(user: @user).payment_reminder.deliver_later
     end
   end
 end

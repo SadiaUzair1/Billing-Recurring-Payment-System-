@@ -1,48 +1,18 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[index destroy search]
+  before_action :set_user, only: %i[index search]
+
   def index
     authorize @user
-    @current_user = current_user
-    @user = User.all
-  end
-
-  def new
-    @user = User.new
-    authorize @user
-  end
-
-  def show; end
-
-  def edit
-    @user = User.find_by(id: params[:id])
-  end
-
-  def update
-    respond_to do |format|
-      if @user.update(user_params)
-        format.html { redirect_to user_path, notice: 'User is successfully updated.' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def destroy
-    authorize @user
-    @user = User.find_by(id: params[:id])
-    @user.destroy
-    redirect_to users_url if @user.destroy
+    @users = User.all
+    @plans = Plan.all
   end
 
   def charge_account
-    users = User.all
+    users = User.all.where(user_type: 0)
     users.each do |user|
-      if user.user_type == 'buyer'
-        @buyer = User.find_by(id: user.id)
-        PaymentMailer.with(user: @buyer).payment_reminder.deliver_now
-      end
+      PaymentMailer.with(user: user).payment_reminder.deliver_now
     end
     redirect_to users_path
   end
@@ -50,6 +20,7 @@ class UsersController < ApplicationController
   def search
     authorize @user
     @users = User.where('email ILIKE?', "%#{params[:q]}%")
+    @plans = Plan.all
   end
 
   private

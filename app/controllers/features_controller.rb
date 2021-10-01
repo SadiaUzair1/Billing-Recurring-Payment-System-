@@ -26,7 +26,7 @@ class FeaturesController < ApplicationController
       else
         format.html do
           redirect_to user_plan_features_path(@user, @plan),
-                      notice: 'Feature was not  updated', status: :unprocessable_entity
+                      notice: 'Feature was not created', status: :unprocessable_entity
         end
       end
     end
@@ -38,7 +38,7 @@ class FeaturesController < ApplicationController
       if @features.update(feature_params)
         format.html { redirect_to user_plan_features_path, notice: 'Feature is successfully updated.' }
       else
-        format.html { render :edit, status: :unprocessable_entity }
+        format.html { render :edit, notice: 'Feature was not updated', status: :unprocessable_entity }
       end
     end
   end

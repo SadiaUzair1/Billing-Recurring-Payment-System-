@@ -11,5 +11,4 @@ class Subscription < ApplicationRecord
   validates :status, presence: true
 
   enum status: { subscribed: 1, unsubscribed: 0 }
-
 end

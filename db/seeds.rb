@@ -12,11 +12,27 @@ User.create(
   name: 'buyer',
   email: 'buyer@gmail.com',
   password: 'buyerr',
-  user_type: 'buyer'
+  user_type: 0
 )
+
 User.create(
   name: 'admin',
   email: 'admin@gmail.com',
   password: 'adminn',
-  user_type: 'admin'
+  user_type: 1
 )
+user = User.first
+
+user.image.attach(
+  io: File.open(Rails.root.join('app/assets/images/image.jpeg')),
+  filename: 'image.jpeg'
+)
+user.save!
+
+user = User.second
+
+user.image.attach(
+  io: File.open(Rails.root.join('app/assets/images/image.jpeg')),
+  filename: 'image.jpeg'
+)
+user.save!

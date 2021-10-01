@@ -2,14 +2,15 @@
 
 Rails.application.routes.draw do
   devise_for :users, controllers: { registration: 'users/registration#create' }
+
   resources :users do
     collection do
       get 'charge_account'
     end
     resources :plans do
-      resources :features
-      resources :subscriptions
-      resources :checkouts
+      resources :features, except: [:show]
+      resources :subscriptions, only: %i[index create]
+      resources :checkouts, only: %i[index create]
     end
     resources :usages
   end

@@ -26,6 +26,7 @@ class PlansController < ApplicationController
       if @plan.save
         format.html { redirect_to user_plans_path, notice: 'Plan was successfully created.' }
       else
+        flash.now[:alert] = @plan.errors.full_messages
         format.html { render :new, status: :unprocessable_entity }
       end
     end
