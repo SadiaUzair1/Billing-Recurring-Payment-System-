@@ -55,7 +55,11 @@ class PlansController < ApplicationController
   private
 
   def set_plan
-    @plan = Plan.find_by(id: params[:id])
+    if Plan.find_by(id: params[:id]).present?
+      @plan = Plan.find_by(id: params[:id])
+    else
+      render 'error'
+    end
   end
 
   def set_user
